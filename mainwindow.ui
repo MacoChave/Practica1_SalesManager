@@ -35,6 +35,8 @@
     <property name="title">
      <string>Archivo</string>
     </property>
+    <addaction name="actionCargar_JSON"/>
+    <addaction name="actionExportar_JSON"/>
    </widget>
    <addaction name="menuArchivo"/>
   </widget>
@@ -47,6 +49,28 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionCargar_JSON">
+   <property name="text">
+    <string>Cargar archivo</string>
+   </property>
+   <property name="toolTip">
+    <string>Cargar archivo JSON</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="actionExportar_JSON">
+   <property name="text">
+    <string>Exportar archivo</string>
+   </property>
+   <property name="toolTip">
+    <string>Exportar archivo JSON</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
