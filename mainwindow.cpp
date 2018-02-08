@@ -13,18 +13,47 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_actionCargar_JSON_triggered()
+MainWindow::abrirSelectorArchivos()
 {
     QString filename = QFileDialog::getOpenFileName(
                 this,
-                "Seleccionar archivo",
+                "Seleccionar fichero JSON",
                 "/home/marco/Escritorio/",
-                "JSON files(*.JSON);;JSON files(*.json)"
+                "JSON Files (*.JSON);;JSON Files (*json)"
                 );
-    QMessageBox::information(this, "File name", filename);
+    return filename;
+}
+
+void MainWindow::on_actionCargar_JSON_triggered()
+{
+    QString filename = abrirSelectorArchivos();
 }
 
 void MainWindow::on_actionExportar_JSON_triggered()
 {
+}
 
+void MainWindow::on_btn_producto_agregar_clicked()
+{
+}
+
+void MainWindow::on_btn_producto_eliminar_clicked()
+{
+}
+
+void MainWindow::on_btn_producto_limpiar_clicked()
+{
+}
+
+void MainWindow::on_btn_producto_detalle_clicked()
+{
+}
+
+void MainWindow::on_btn_producto_grafico_clicked()
+{
+}
+
+void MainWindow::on_btn_producto_carga_clicked()
+{
+    QString filename = abrirSelectorArchivos();
 }

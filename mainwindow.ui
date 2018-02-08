@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1200</width>
+    <width>672</width>
     <height>600</height>
    </rect>
   </property>
@@ -20,14 +20,166 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QGridLayout" name="gridLayout"/>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="tabShape">
+       <enum>QTabWidget::Rounded</enum>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <property name="elideMode">
+       <enum>Qt::ElideNone</enum>
+      </property>
+      <widget class="QWidget" name="tab_producto">
+       <attribute name="title">
+        <string>Productos</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="0" column="0">
+         <widget class="QGroupBox" name="grp_producto_Info">
+          <property name="title">
+           <string>Información</string>
+          </property>
+          <layout class="QFormLayout" name="formLayout">
+           <item row="0" column="0">
+            <widget class="QLabel" name="lbl_producto_codigo">
+             <property name="text">
+              <string>Código</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="edt_producto_codigo"/>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="lbl_producto_precio">
+             <property name="text">
+              <string>Precio</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLineEdit" name="edt_producto_precio"/>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="lbl_producto_nombre">
+             <property name="text">
+              <string>Nombre</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLineEdit" name="edt_producto_nombre"/>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="lbl_producto_descripcion">
+             <property name="text">
+              <string>Descripcion</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0" colspan="2">
+            <layout class="QHBoxLayout" name="horizontalLayout">
+             <item>
+              <widget class="QPushButton" name="btn_producto_agregar">
+               <property name="text">
+                <string>OK</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_producto_eliminar">
+               <property name="text">
+                <string>ELIMINAR</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_producto_limpiar">
+               <property name="text">
+                <string>LIMPIAR</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="3" column="1">
+            <widget class="QLineEdit" name="lineEdit"/>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="1" rowspan="2">
+         <widget class="QGroupBox" name="grp_producto_registro">
+          <property name="title">
+           <string>Registro</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_2">
+           <item row="0" column="0">
+            <widget class="QListView" name="list_producto_registro"/>
+           </item>
+           <item row="1" column="0">
+            <widget class="QPushButton" name="btn_producto_detalle">
+             <property name="text">
+              <string>Ver detalle (De item seleccionado)</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QGroupBox" name="grp_producto_accion">
+          <property name="title">
+           <string>Acciones</string>
+          </property>
+          <widget class="QPushButton" name="btn_producto_grafico">
+           <property name="geometry">
+            <rect>
+             <x>30</x>
+             <y>60</y>
+             <width>98</width>
+             <height>28</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Grafico</string>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="btn_producto_carga">
+           <property name="geometry">
+            <rect>
+             <x>140</x>
+             <y>60</y>
+             <width>98</width>
+             <height>28</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>Cargar JSON</string>
+           </property>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_cliente">
+       <attribute name="title">
+        <string>Clientes</string>
+       </attribute>
+      </widget>
+     </widget>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1200</width>
+     <width>672</width>
      <height>25</height>
     </rect>
    </property>
