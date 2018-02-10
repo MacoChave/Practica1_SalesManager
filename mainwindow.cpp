@@ -21,43 +21,34 @@ QString MainWindow::abrirSelectorArchivos()
                 this,
                 "Seleccionar fichero JSON",
                 "/home/marco/Escritorio/",
-                "JSON Files (*.JSON);;JSON Files (*json)"
+                "JSON Files (*.json);;JSON Files (*JSON)"
                 );
-    return filename;
+    return filename.toLatin1().data();
 }
 
 void MainWindow::on_actionCargar_JSON_triggered()
 {
-    QString filename = abrirSelectorArchivos();
 }
 
 void MainWindow::on_actionExportar_JSON_triggered()
 {
 }
 
+void MainWindow::on_actionSalir_triggered()
+{
+    this->close();
+}
+
 void MainWindow::on_btn_producto_agregar_clicked()
 {
-    listaProducto->agregar(new TADProducto("P001", 50.50, "Producto A", "Breve descripcion"));
-    listaProducto->agregar(new TADProducto("P002", 20.50, "Producto B", "Breve descripcion"));
-    listaProducto->agregar(new TADProducto("P003", 50.50, "Producto C", "Breve descripcion"));
-    listaProducto->agregar(new TADProducto("P004", 40.50, "Producto D", "Breve descripcion"));
-    listaProducto->agregar(new TADProducto("P005", 30.50, "Producto E", "Breve descripcion"));
-    listaProducto->agregar(new TADProducto("P006", 50.50, "Producto F", "Breve descripcion"));
-    listaProducto->agregar(new TADProducto("P007", 70.50, "Producto G", "Breve descripcion"));
-    listaProducto->agregar(new TADProducto("P008", 51.50, "Producto H", "Breve descripcion"));
-    listaProducto->agregar(new TADProducto("P009", 80.50, "Producto I", "Breve descripcion"));
-    listaProducto->agregar(new TADProducto("P010", 10.50, "Producto J", "Breve descripcion"));
-    listaProducto->agregar(new TADProducto("P011", 80.50, "Producto K", "Breve descripcion"));
-    listaProducto->agregar(new TADProducto("P012", 30.50, "Producto L", "Breve descripcion"));
-    listaProducto->agregar(new TADProducto("P013", 90.50, "Producto M", "Breve descripcion"));
-    listaProducto->agregar(new TADProducto("P014", 40.50, "Producto N", "Breve descripcion"));
-    listaProducto->agregar(new TADProducto("P015", 60.50, "Producto O", "Breve descripcion"));
-
+    ui->tbl_producto_registro->clear();
     listaProducto->cargarDetalle(ui->tbl_producto_registro);
 }
 
 void MainWindow::on_btn_producto_eliminar_clicked()
 {
+    ui->tbl_producto_registro->clear();
+    listaProducto->cargarDetalle(ui->tbl_producto_registro);
 }
 
 void MainWindow::on_btn_producto_limpiar_clicked()
@@ -79,5 +70,37 @@ void MainWindow::on_btn_producto_grafico_clicked()
 
 void MainWindow::on_btn_producto_carga_clicked()
 {
-    //QString filename = abrirSelectorArchivos();
+    QString filename = abrirSelectorArchivos();
+    QFile file(filename);
+
+    if (!file.open(QFile::ReadOnly))
+        return;
+
+    jsd = QJsonDocument::fromJson(file.readAll());
+    file.close();
+
+    cargarProductos(jsd);
+}
+
+
+void MainWindow::cargarProductos(QJsonDocument jsd)
+{
+    QJsonArray jsa = jsd.array();
+
+    for (int i = 0; i < jsa.count(); i++)
+    {
+        QJsonValue jsv = jsa.at(i);
+        QJsonObject jso = jsv.toObject();
+
+        TADProducto *producto = new TADProducto();
+        producto->setCodigo(jso["codigo"].toString());
+        producto->setNombre(jso["nombre"].toString());
+        producto->setPrecio(jso["precio"].toString().toDouble());
+        producto->setDescripcion(jso["descripcion"].toString());
+
+        listaProducto->agregar(producto);
+    }
+
+    ui->tbl_producto_registro->clear();
+    listaProducto->cargarDetalle(ui->tbl_producto_registro);
 }

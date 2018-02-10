@@ -4,6 +4,10 @@
 #include <QMainWindow>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QJsonDocument>
+#include <QJsonArray>
+#include <QJsonObject>
+#include <QDebug>
 #include "ListaProducto/listaproducto.h"
 #include "Tad/tadproducto.h"
 
@@ -36,11 +40,15 @@ private slots:
 
     void on_btn_producto_carga_clicked();
 
+    void on_actionSalir_triggered();
+
 private:
     Ui::MainWindow *ui;
+    QJsonDocument jsd;
     ListaProducto *listaProducto;
 
     QString abrirSelectorArchivos();
+    void cargarProductos(QJsonDocument jsd);
 };
 
 #endif // MAINWINDOW_H
