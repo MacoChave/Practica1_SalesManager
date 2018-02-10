@@ -15,12 +15,16 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     Parser/json.c \
-    Tad/tadproducto.cpp
+    Tad/tadproducto.cpp \
+    ListaProducto/listaproducto.cpp \
+    ListaProducto/nodoproducto.cpp
 
 HEADERS  += mainwindow.h \
     Parser/json.h \
     Tad/tadproducto.h \
     nodoproducto.h \
-    listaproducto.h
+    listaproducto.h \
+    ListaProducto/listaproducto.h \
+    ListaProducto/nodoproducto.h
 
 FORMS    += mainwindow.ui

@@ -40,10 +40,10 @@ void TADProducto::setDescripcion(QString value)
     descripcion = value;
 }
 
-QString TADProducto::getName()
+QString TADProducto::getNombreNodo()
 {
     QString name;
-    name.append(codigo);
+    name.append(getCodigo());
 
     return name;
 }
@@ -51,16 +51,23 @@ QString TADProducto::getName()
 QString TADProducto::toString()
 {
     QString string;
-    string.append(codigo);
-    string.append(nombre);
-    string.append(QString::number(precio));
+    string.append(getCodigo());
+    string.append("\\n");
+    string.append(getNombre());
+    string.append("\\n");
+    string.append(QString::number(getPrecio()));
 
     return string;
 }
 
-int TADProducto::comparar(TADProducto value)
+int TADProducto::comparar(TADProducto *value)
 {
-    return codigo.compare(value.getCodigo(), Qt::CaseSensitive);
+    return codigo.compare(value->getCodigo(), Qt::CaseSensitive);
+}
+
+int TADProducto::comparar(QString value)
+{
+    return codigo.compare(value, Qt::CaseSensitive);
 }
 
 TADProducto::TADProducto()
@@ -74,8 +81,8 @@ TADProducto::TADProducto()
 TADProducto::TADProducto(QString _codigo, double _precio, QString _nombre, QString _descripcion)
 {
     codigo = _codigo;
-    precio = _nombre;
-    nombre = _precio;
+    precio = _precio;
+    nombre = _nombre;
     descripcion = _descripcion;
 }
 

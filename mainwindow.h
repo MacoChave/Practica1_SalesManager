@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QFileDialog>
 #include <QMessageBox>
+#include "ListaProducto/listaproducto.h"
+#include "Tad/tadproducto.h"
 
 namespace Ui {
 class MainWindow;
@@ -36,8 +38,9 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    ListaProducto *listaProducto;
 
-    abrirSelectorArchivos();
+    QString abrirSelectorArchivos();
 };
 
 #endif // MAINWINDOW_H
