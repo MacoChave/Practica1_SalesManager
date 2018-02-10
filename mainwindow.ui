@@ -83,7 +83,7 @@
            <item row="4" column="0" colspan="2">
             <layout class="QHBoxLayout" name="horizontalLayout">
              <item>
-              <widget class="QPushButton" name="btn_producto_agregar">
+              <widget class="QPushButton" name="btn_producto_aceptar">
                <property name="text">
                 <string>OK</string>
                </property>
@@ -149,7 +149,7 @@
              </column>
              <column>
               <property name="text">
-               <string/>
+               <string>Descripcion</string>
               </property>
              </column>
             </widget>
@@ -214,8 +214,6 @@
     <property name="title">
      <string>Archivo</string>
     </property>
-    <addaction name="actionCargar_JSON"/>
-    <addaction name="actionExportar_JSON"/>
     <addaction name="actionSalir"/>
    </widget>
    <addaction name="menuArchivo"/>
@@ -229,28 +227,6 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="actionCargar_JSON">
-   <property name="text">
-    <string>Cargar archivo</string>
-   </property>
-   <property name="toolTip">
-    <string>Cargar archivo JSON</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+O</string>
-   </property>
-  </action>
-  <action name="actionExportar_JSON">
-   <property name="text">
-    <string>Exportar archivo</string>
-   </property>
-   <property name="toolTip">
-    <string>Exportar archivo JSON</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+S</string>
-   </property>
-  </action>
   <action name="actionSalir">
    <property name="text">
     <string>Salir</string>

@@ -20,15 +20,14 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
+
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
 private slots:
-    void on_actionCargar_JSON_triggered();
+    void on_actionSalir_triggered();
 
-    void on_actionExportar_JSON_triggered();
-
-    void on_btn_producto_agregar_clicked();
+    void on_btn_producto_aceptar_clicked();
 
     void on_btn_producto_eliminar_clicked();
 
@@ -39,16 +38,14 @@ private slots:
     void on_btn_producto_grafico_clicked();
 
     void on_btn_producto_carga_clicked();
-
-    void on_actionSalir_triggered();
-
 private:
     Ui::MainWindow *ui;
     QJsonDocument jsd;
+    QString codigoSeleccionado;
     ListaProducto *listaProducto;
 
-    QString abrirSelectorArchivos();
-    void cargarProductos(QJsonDocument jsd);
+    void cargarJSON();
+    void limpiarTabla(QTableWidget *table);
 };
 
 #endif // MAINWINDOW_H
