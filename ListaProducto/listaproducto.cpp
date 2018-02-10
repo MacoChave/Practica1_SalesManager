@@ -146,6 +146,15 @@ NodoProducto *ListaProducto::buscar(QString value)
         return NULL;
 }
 
+TADProducto *ListaProducto::obtener(QString value)
+{
+    NodoProducto *nodo = buscar(value);
+    if (nodo != NULL)
+        return nodo->getItem();
+    else
+        return NULL;
+}
+
 bool ListaProducto::eliminar(QString value)
 {
     NodoProducto *nodo = buscar(value);

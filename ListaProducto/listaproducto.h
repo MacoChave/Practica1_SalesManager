@@ -31,6 +31,7 @@ public:
     bool vacio();
     bool agregar(TADProducto *producto);
     NodoProducto *buscar(QString value);
+    TADProducto *obtener(QString value);
     bool eliminar(QString value);
     void graficar();
     void cargarDetalle(QTableWidget *table);

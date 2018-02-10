@@ -47,6 +47,7 @@ void MainWindow::on_btn_producto_agregar_clicked()
 
 void MainWindow::on_btn_producto_eliminar_clicked()
 {
+    listaProducto->eliminar(ui->edt_producto_codigo->text());
     ui->tbl_producto_registro->clear();
     listaProducto->cargarDetalle(ui->tbl_producto_registro);
 }
@@ -61,6 +62,15 @@ void MainWindow::on_btn_producto_limpiar_clicked()
 
 void MainWindow::on_btn_producto_detalle_clicked()
 {
+    QTableWidgetItem *twi = ui->tbl_producto_registro->currentItem();
+    TADProducto *producto = listaProducto->obtener(twi->text());
+    if (producto != NULL)
+    {
+        ui->edt_producto_codigo->setText(producto->getCodigo());
+        ui->edt_producto_nombre->setText(producto->getNombre());
+        ui->edt_producto_precio->setText(QString::number(producto->getPrecio()));
+        ui->edt_producto_descripcion->setText(producto->getDescripcion());
+    }
 }
 
 void MainWindow::on_btn_producto_grafico_clicked()
