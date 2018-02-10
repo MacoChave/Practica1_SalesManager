@@ -113,6 +113,8 @@ void MainWindow::on_btn_producto_detalle_clicked()
         ui->edt_producto_nombre->setText(producto->getNombre());
         ui->edt_producto_precio->setText(QString::number(producto->getPrecio()));
         ui->edt_producto_descripcion->setText(producto->getDescripcion());
+
+        codigoSeleccionado = producto->getCodigo();
     }
 }
 
@@ -145,7 +147,8 @@ void MainWindow::on_btn_producto_carga_clicked()
 
         limpiarTabla(ui->tbl_producto_registro);
         listaProducto->cargarDetalle(ui->tbl_producto_registro);
+        jsd = QJsonDocument::fromRawData("", 0);
     }
     else
-        qDebug() << "No se pudo abrir el fichero JSON" << endl;
+        qDebug() << "El fichero JSON está vacio" << endl;
 }
