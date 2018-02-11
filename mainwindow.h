@@ -8,6 +8,8 @@
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QDebug>
+#include <QList>
+#include <time.h>
 #include "ListaProducto/listaproducto.h"
 #include "Tad/tadproducto.h"
 
@@ -40,6 +42,7 @@ private slots:
     void on_btn_producto_carga_clicked();
 private:
     Ui::MainWindow *ui;
+    QList<TADProducto *> qlistaProducto;
     QJsonDocument jsd;
     QString codigoSeleccionado;
     ListaProducto *listaProducto;
