@@ -9,11 +9,11 @@
 #include <QJsonObject>
 #include <QDebug>
 #include <QList>
-#include <time.h>
 #include "ListaProducto/listaproducto.h"
 #include "Tad/tadproducto.h"
 #include "ListaCliente/listacliente.h"
 #include "Tad/tadcliente.h"
+#include "dialogeficiencia.h"
 
 namespace Ui {
 class MainWindow;
@@ -31,6 +31,8 @@ public:
 private slots:
     void on_actionSalir_triggered();
 
+    void on_actionEficiencia_triggered();
+
     void on_btn_producto_aceptar_clicked();
 
     void on_btn_producto_eliminar_clicked();
@@ -42,6 +44,7 @@ private slots:
     void on_btn_producto_grafico_clicked();
 
     void on_btn_producto_carga_clicked();
+
     void on_btn_cliente_aceptar_clicked();
 
     void on_btn_cliente_eliminar_clicked();
@@ -53,7 +56,6 @@ private slots:
     void on_btn_cliente_grafico_clicked();
 
     void on_btn_cliente_carga_clicked();
-
 private:
     Ui::MainWindow *ui;
     QJsonDocument jsd;

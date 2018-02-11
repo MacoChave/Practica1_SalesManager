@@ -23,6 +23,12 @@ void MainWindow::on_actionSalir_triggered()
     this->close();
 }
 
+void MainWindow::on_actionEficiencia_triggered()
+{
+    DialogEficiencia dialog(this);
+    dialog.exec();
+}
+
 void MainWindow::cargarJSON()
 {
     QString filename = QFileDialog::getOpenFileName(
@@ -129,10 +135,6 @@ void MainWindow::on_btn_producto_carga_clicked()
 {
     cargarJSON();
 
-    clock_t t1, t2;
-    double secs;
-    t1 = clock();
-
     if (!jsd.isEmpty())
     {
         QJsonArray jsa = jsd.array();
@@ -156,10 +158,6 @@ void MainWindow::on_btn_producto_carga_clicked()
     }
     else
         qDebug() << "El fichero JSON está vacio" << endl;
-
-    t2 = clock();
-    secs = (double)(t2 - t1) / CLOCKS_PER_SEC;
-    qDebug() << "Mi estructura " << QString::number(secs) + " ms";
 
     jsd = QJsonDocument::fromRawData("", 0);
 }
