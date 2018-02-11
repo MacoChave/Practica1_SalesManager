@@ -78,43 +78,27 @@ NodoProducto *ListaProducto::getUltimo()
 
 bool ListaProducto::vacio()
 {
-    return primero == NULL && ultimo == NULL;
+    return primero == NULL;
 }
 
 bool ListaProducto::agregar(TADProducto *producto)
 {
-    NodoProducto *nuevo = new NodoProducto(producto);
-
-    if (vacio()) {
-        primero = ultimo = nuevo;
-        primero->setAnterior(nuevo);
-        ultimo->setSiguiente(nuevo);
+    if (vacio())
+    {
+        primero = ultimo = new NodoProducto(producto);;
+        primero->setAnterior(ultimo);
+        ultimo->setSiguiente(primero);
 
         return true;
     }
 
     if (primero->getItem()->comparar(producto) > 0)
-    {
-        nuevo->setSiguiente(primero);
-        nuevo->setAnterior(ultimo);
-        primero->setAnterior(nuevo);
-        ultimo->setSiguiente(nuevo);
-        primero = nuevo;
-
-        return true;
-    }
+        return agregarPrimero(producto);
 
     if (producto->comparar(ultimo->getItem()) > 0)
-    {
-        nuevo->setAnterior(ultimo);
-        nuevo->setSiguiente(primero);
-        ultimo->setSiguiente(nuevo);
-        primero->setAnterior(nuevo);
-        ultimo = nuevo;
+        return agregarUltimo(producto);
 
-        return true;
-    }
-
+    NodoProducto *nuevo = new NodoProducto(producto);
     if (!agregar(primero->getSiguiente(), nuevo))
     {
         delete nuevo;
@@ -123,6 +107,50 @@ bool ListaProducto::agregar(TADProducto *producto)
     }
     else
         return true;
+}
+
+bool ListaProducto::agregarPrimero(TADProducto *producto)
+{
+    NodoProducto *nuevo = new NodoProducto(producto);
+
+    if (!vacio())
+    {
+        nuevo->setSiguiente(primero);
+        nuevo->setAnterior(ultimo);
+        ultimo->setSiguiente(nuevo);
+        primero->setAnterior(nuevo);
+
+        primero = nuevo;
+        return true;
+    }
+
+    primero = ultimo = nuevo;
+    primero->setSiguiente(nuevo);
+    primero->setAnterior(nuevo);
+
+    return true;
+}
+
+bool ListaProducto::agregarUltimo(TADProducto *producto)
+{
+    NodoProducto *nuevo = new NodoProducto(producto);
+
+    if (!vacio())
+    {
+        nuevo->setSiguiente(primero);
+        nuevo->setAnterior(ultimo);
+        ultimo->setSiguiente(nuevo);
+        primero->setAnterior(nuevo);
+
+        ultimo = nuevo;
+        return true;
+    }
+
+    primero = ultimo = nuevo;
+    primero->setSiguiente(nuevo);
+    primero->setAnterior(nuevo);
+
+    return true;
 }
 
 NodoProducto *ListaProducto::buscar(QString value)

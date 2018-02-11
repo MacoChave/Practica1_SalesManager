@@ -12,6 +12,8 @@
 #include <time.h>
 #include "ListaProducto/listaproducto.h"
 #include "Tad/tadproducto.h"
+#include "ListaCliente/listacliente.h"
+#include "Tad/tadcliente.h"
 
 namespace Ui {
 class MainWindow;
@@ -40,12 +42,24 @@ private slots:
     void on_btn_producto_grafico_clicked();
 
     void on_btn_producto_carga_clicked();
+    void on_btn_cliente_aceptar_clicked();
+
+    void on_btn_cliente_eliminar_clicked();
+
+    void on_btn_cliente_limpiar_clicked();
+
+    void on_btn_cliente_detalle_clicked();
+
+    void on_btn_cliente_grafico_clicked();
+
+    void on_btn_cliente_carga_clicked();
+
 private:
     Ui::MainWindow *ui;
-    QList<TADProducto *> qlistaProducto;
     QJsonDocument jsd;
     QString codigoSeleccionado;
     ListaProducto *listaProducto;
+    ListaCliente *listaCliente;
 
     void cargarJSON();
     void limpiarTabla(QTableWidget *table);

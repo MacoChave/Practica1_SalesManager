@@ -35,6 +35,8 @@ public:
     bool eliminar(QString value);
     void graficar();
     void cargarDetalle(QTableWidget *table);
+    bool agregarPrimero(TADProducto *producto);
+    bool agregarUltimo(TADProducto *producto);
 };
 
 #endif // LISTAPRODUCTO_H

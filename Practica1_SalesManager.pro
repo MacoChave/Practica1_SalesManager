@@ -16,13 +16,19 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     Tad/tadproducto.cpp \
     ListaProducto/listaproducto.cpp \
-    ListaProducto/nodoproducto.cpp
+    ListaProducto/nodoproducto.cpp \
+    ListaCliente/nodocliente.cpp \
+    Tad/tadcliente.cpp \
+    ListaCliente/listacliente.cpp
 
 HEADERS  += mainwindow.h \
     Tad/tadproducto.h \
     nodoproducto.h \
     listaproducto.h \
     ListaProducto/listaproducto.h \
-    ListaProducto/nodoproducto.h
+    ListaProducto/nodoproducto.h \
+    ListaCliente/nodocliente.h \
+    Tad/tadcliente.h \
+    ListaCliente/listacliente.h
 
 FORMS    += mainwindow.ui
