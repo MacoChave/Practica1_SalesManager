@@ -20,7 +20,10 @@ SOURCES += main.cpp\
     ListaCliente/nodocliente.cpp \
     Tad/tadcliente.cpp \
     ListaCliente/listacliente.cpp \
-    dialogeficiencia.cpp
+    dialogeficiencia.cpp \
+    ListaFactura/nodofactura.cpp \
+    Tad/tadfactura.cpp \
+    ListaFactura/listafactura.cpp
 
 HEADERS  += mainwindow.h \
     Tad/tadproducto.h \
@@ -31,7 +34,11 @@ HEADERS  += mainwindow.h \
     ListaCliente/nodocliente.h \
     Tad/tadcliente.h \
     ListaCliente/listacliente.h \
-    dialogeficiencia.h
+    dialogeficiencia.h \
+    ListaFactura/nodofactura.h \
+    Tad/tadfactura.h \
+    listafactura.h \
+    ListaFactura/listafactura.h
 
 FORMS    += mainwindow.ui \
     dialogeficiencia.ui

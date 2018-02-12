@@ -243,12 +243,25 @@ void MainWindow::on_btn_cliente_carga_clicked()
 
         for (int i = 0; i < jsa.count(); i++)
         {
-            QJsonValue jsv = jsa.at(i);
-            QJsonObject jso = jsv.toObject();
+            QJsonObject jso = jsa.at(i).toObject();
 
             TADCliente *cliente = new TADCliente();
             cliente->setNit(jso["NIT"].toString());
             cliente->setNombre(jso["nombre"].toString());
+
+            QJsonArray jsa_facturas = jso["facturas"].toArray();
+
+            for (int j = 0; j < jsa_facturas.count(); j++)
+            {
+                QJsonObject jso_facturas = jsa_facturas.at(j).toObject();
+
+                TADFactura *factura = new TADFactura();
+                factura->setSerie(jso_facturas["serie"].toString());
+                factura->setCorrelativo(jso_facturas["correlativo"].toString().toInt());
+                factura->setFechaEmision(jso_facturas["fecha"].toString());
+
+                cliente->setFactura(factura);
+            }
 
             listaCliente->agregar(cliente);
         }
