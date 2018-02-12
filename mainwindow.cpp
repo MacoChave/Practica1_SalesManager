@@ -221,8 +221,11 @@ void MainWindow::on_btn_cliente_detalle_clicked()
 
     if (cliente != NULL)
     {
+        int count = cliente->getFacturas()->contar();
+
         ui->edt_cliente_nit->setText(cliente->getNit());
         ui->edt_cliente_nombre->setText(cliente->getNombre());
+        ui->edt_cliente_no_facturas->setText(QString::number(count));
 
         codigoSeleccionado = cliente->getNit();
     }
@@ -259,6 +262,21 @@ void MainWindow::on_btn_cliente_carga_clicked()
                 factura->setSerie(jso_facturas["serie"].toString());
                 factura->setCorrelativo(jso_facturas["correlativo"].toString().toInt());
                 factura->setFechaEmision(jso_facturas["fecha"].toString());
+
+                QJsonArray jsa_productos = jso_facturas["productos"].toArray();
+
+                for (int z = 0; z < jsa_productos.count(); z++)
+                {
+                    QJsonObject jso_productos = jsa_productos.at(z).toObject();
+
+                    TADProducto *producto = listaProducto->obtener(jso_productos["codigo"].toString());
+                    TADDetalle *detalle = new TADDetalle();
+                    detalle->setProducto(producto);
+                    detalle->setCantidad(jso_productos["cantidad"].toString().toInt());
+                    detalle->setDescuento(jso_productos["descuento"].toString().toDouble());
+
+                    factura->setDetalle(detalle);
+                }
 
                 cliente->setFactura(factura);
             }

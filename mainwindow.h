@@ -3,16 +3,14 @@
 
 #include <QMainWindow>
 #include <QFileDialog>
-#include <QMessageBox>
 #include <QJsonDocument>
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QDebug>
 #include <QList>
 #include "ListaProducto/listaproducto.h"
-#include "Tad/tadproducto.h"
 #include "ListaCliente/listacliente.h"
-#include "Tad/tadcliente.h"
+#include "PilaReporte/piladetalle.h"
 #include "dialogeficiencia.h"
 
 namespace Ui {

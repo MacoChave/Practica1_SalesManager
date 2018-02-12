@@ -23,7 +23,10 @@ SOURCES += main.cpp\
     dialogeficiencia.cpp \
     ListaFactura/nodofactura.cpp \
     Tad/tadfactura.cpp \
-    ListaFactura/listafactura.cpp
+    ListaFactura/listafactura.cpp \
+    Tad/taddetalle.cpp \
+    PilaReporte/nodoregistro.cpp \
+    PilaReporte/piladetalle.cpp
 
 HEADERS  += mainwindow.h \
     Tad/tadproducto.h \
@@ -38,7 +41,10 @@ HEADERS  += mainwindow.h \
     ListaFactura/nodofactura.h \
     Tad/tadfactura.h \
     listafactura.h \
-    ListaFactura/listafactura.h
+    ListaFactura/listafactura.h \
+    Tad/taddetalle.h \
+    PilaReporte/nodoregistro.h \
+    PilaReporte/piladetalle.h
 
 FORMS    += mainwindow.ui \
     dialogeficiencia.ui

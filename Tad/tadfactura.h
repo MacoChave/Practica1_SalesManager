@@ -1,12 +1,14 @@
 #ifndef TADFACTURA_H
 #define TADFACTURA_H
 #include <QString>
+#include "PilaReporte/piladetalle.h"
 
 class TADFactura
 {
     QString serie;
     int correlativo;
     QString fechaEmision;
+    PilaDetalle *detalle;
 public:
     TADFactura();
     ~TADFactura();
@@ -17,6 +19,8 @@ public:
     int getCorrelativo();
     void setFechaEmision(QString value);
     QString getFechaEmision();
+    void setDetalle(TADDetalle *value);
+    PilaDetalle *getDetalles();
 
     QString getNombreNodo();
     QString toString();

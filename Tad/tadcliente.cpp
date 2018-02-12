@@ -72,6 +72,7 @@ QString TADCliente::toString()
     string.append(nombre);
     string.append("\\n");
     string.append(QString::number(facturas->contar()));
+    string.append(" facturas");
 
     return string;
 }

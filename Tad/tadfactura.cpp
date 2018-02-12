@@ -2,12 +2,15 @@
 
 TADFactura::TADFactura()
 {
+    detalle = new PilaDetalle();
 }
 
 TADFactura::~TADFactura()
 {
     serie.clear();
     correlativo = 0;
+    delete detalle;
+    detalle = NULL;
 }
 
 void TADFactura::setSerie(QString value)
@@ -38,6 +41,16 @@ void TADFactura::setFechaEmision(QString value)
 QString TADFactura::getFechaEmision()
 {
     return fechaEmision;
+}
+
+void TADFactura::setDetalle(TADDetalle *value)
+{
+    detalle->push(value);
+}
+
+PilaDetalle *TADFactura::getDetalles()
+{
+    return detalle;
 }
 
 QString TADFactura::getNombreNodo()
