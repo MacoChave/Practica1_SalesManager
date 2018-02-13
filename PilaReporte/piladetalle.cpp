@@ -11,11 +11,17 @@ PilaDetalle::~PilaDetalle()
     cima = NULL;
 }
 
+NodoRegistro *PilaDetalle::getCima()
+{
+    return cima;
+}
+
 void PilaDetalle::push(TADDetalle *value)
 {
     if (vacio())
     {
         cima = new NodoRegistro(value);
+        return;
     }
 
     NodoRegistro *nuevo = new NodoRegistro(value);

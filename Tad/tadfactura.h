@@ -1,6 +1,9 @@
 #ifndef TADFACTURA_H
 #define TADFACTURA_H
 #include <QString>
+#include <QPrinter>
+#include <QPainter>
+#include <iostream>
 #include "PilaReporte/piladetalle.h"
 
 class TADFactura
@@ -22,6 +25,7 @@ public:
     void setDetalle(TADDetalle *value);
     PilaDetalle *getDetalles();
 
+    void exportar();
     QString getNombreNodo();
     QString toString();
     int comparar(TADFactura *value);

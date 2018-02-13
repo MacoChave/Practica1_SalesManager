@@ -4,6 +4,7 @@
 #include <QFile>
 #include <QTableWidget>
 #include <QTextStream>
+#include <iostream>
 #include "nodocliente.h"
 #include "Tad/tadcliente.h"
 

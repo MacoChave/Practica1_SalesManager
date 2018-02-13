@@ -1,5 +1,6 @@
 #ifndef LISTAFACTURA_H
 #define LISTAFACTURA_H
+#include <QListWidget>
 #include "ListaFactura/nodofactura.h"
 
 class ListaFactura
@@ -22,6 +23,7 @@ public:
     bool agregarPrimero(TADFactura *value);
     bool agregarUltimo(TADFactura *value);
     int contar();
+    void llenarLista(QListWidget *lista);
 };
 
 #endif // LISTAFACTURA_H

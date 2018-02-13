@@ -1,5 +1,10 @@
 #include "tadproducto.h"
 
+int TADProducto::getId()
+{
+    return id;
+}
+
 QString TADProducto::getCodigo()
 {
     return codigo;
@@ -8,6 +13,9 @@ QString TADProducto::getCodigo()
 void TADProducto::setCodigo(QString value)
 {
     codigo = value;
+
+    value.remove("P");
+    id = value.toInt();
 }
 
 double TADProducto::getPrecio()
@@ -62,16 +70,34 @@ QString TADProducto::toString()
 
 int TADProducto::comparar(TADProducto *value)
 {
-    return codigo.compare(value->getCodigo(), Qt::CaseSensitive);
+    if (id > value->getId())
+        return 1;
+    else
+    {
+        if (id < value->getId())
+            return -1;
+        else
+            return 0;
+    }
 }
 
 int TADProducto::comparar(QString value)
 {
-    return codigo.compare(value, Qt::CaseSensitive);
+    value.remove("P");
+    if (id > value.toInt())
+        return 1;
+    else
+    {
+        if (id < value.toInt())
+            return -1;
+        else
+            return 0;
+    }
 }
 
 TADProducto::TADProducto()
 {
+    id = 0;
     codigo.clear();
     precio = 0;
     nombre.clear();
@@ -84,10 +110,14 @@ TADProducto::TADProducto(QString _codigo, double _precio, QString _nombre, QStri
     precio = _precio;
     nombre = _nombre;
     descripcion = _descripcion;
+
+    _codigo.remove("P");
+    id = _codigo.toInt();
 }
 
 TADProducto::~TADProducto()
 {
+    id = 0;
     codigo.clear();
     precio = 0;
     nombre.clear();

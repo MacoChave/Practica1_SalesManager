@@ -268,6 +268,8 @@ void ListaProducto::graficar()
     file.close();
 
     system("dot -Tpng -o listaProducto.png listaProducto.dot");
+
+    std::cout << "Creación de grafo completado" << std::endl;
 }
 
 void ListaProducto::cargarDetalle(QTableWidget *table)

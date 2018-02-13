@@ -4,6 +4,7 @@
 #include <QFile>
 #include <QTableWidget>
 #include <QTextStream>
+#include <iostream>
 #include "nodoproducto.h"
 #include "Tad/tadproducto.h"
 

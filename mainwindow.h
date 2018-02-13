@@ -54,6 +54,11 @@ private slots:
     void on_btn_cliente_grafico_clicked();
 
     void on_btn_cliente_carga_clicked();
+
+    void on_btn_detalle_buscar_clicked();
+
+    void on_btn_detalle_ver_clicked();
+
 private:
     Ui::MainWindow *ui;
     QJsonDocument jsd;

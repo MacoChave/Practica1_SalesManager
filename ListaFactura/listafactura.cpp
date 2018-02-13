@@ -199,3 +199,18 @@ int ListaFactura::contar()
 
     return i;
 }
+
+void ListaFactura::llenarLista(QListWidget *lista)
+{
+    NodoFactura *temp = primero;
+
+    while (temp != NULL)
+    {
+        QString item(temp->getItem()->getSerie());
+        item.append("-");
+        item.append(QString::number(temp->getItem()->getCorrelativo()));
+
+        lista->addItem(item);
+        temp = temp->getSiguiente();
+    }
+}

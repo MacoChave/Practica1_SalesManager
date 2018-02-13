@@ -26,6 +26,7 @@ void MainWindow::on_actionSalir_triggered()
 void MainWindow::on_actionEficiencia_triggered()
 {
     DialogEficiencia dialog(this);
+    dialog.setWindowTitle("Eficiencia de algoritmo");
     dialog.exec();
 }
 
@@ -150,7 +151,7 @@ void MainWindow::on_btn_producto_carga_clicked()
             producto->setPrecio(jso["precio"].toString().toDouble());
             producto->setDescripcion(jso["descripcion"].toString());
 
-            listaProducto->agregarUltimo(producto);
+            listaProducto->agregar(producto);
         }
 
         limpiarTabla(ui->tbl_producto_registro);
@@ -160,6 +161,7 @@ void MainWindow::on_btn_producto_carga_clicked()
         qDebug() << "El fichero JSON está vacio" << endl;
 
     jsd = QJsonDocument::fromRawData("", 0);
+    std::cout << "Carga de JSON completado" << std::endl;
 }
 
 void MainWindow::on_btn_cliente_aceptar_clicked()
@@ -272,8 +274,8 @@ void MainWindow::on_btn_cliente_carga_clicked()
                     TADProducto *producto = listaProducto->obtener(jso_productos["codigo"].toString());
                     TADDetalle *detalle = new TADDetalle();
                     detalle->setProducto(producto);
-                    detalle->setCantidad(jso_productos["cantidad"].toString().toInt());
-                    detalle->setDescuento(jso_productos["descuento"].toString().toDouble());
+                    detalle->setCantidad(jso_productos["cantidad"].toInt());
+                    detalle->setDescuento(jso_productos["descuento"].toDouble());
 
                     factura->setDetalle(detalle);
                 }
@@ -291,4 +293,35 @@ void MainWindow::on_btn_cliente_carga_clicked()
         qDebug() << "El fichero JSON está vacio" << endl;
 
     jsd = QJsonDocument::fromRawData("", 0);
+    std::cout << "Carga de JSON completado" << std::endl;
+}
+
+void MainWindow::on_btn_detalle_buscar_clicked()
+{
+    ui->lst_detalle_facturas->clear();
+
+    TADCliente *cliente;
+    cliente = listaCliente->obtener(ui->edt_detalle_buscar->text());
+
+    if (cliente != NULL)
+    {
+        ui->edt_detalle_nit->setText(cliente->getNit());
+        ui->edt_detalle_nombre->setText(cliente->getNombre());
+        ui->edt_detalle_no_facturas->setText(QString::number(cliente->getFacturas()->contar()));
+
+        cliente->getFacturas()->llenarLista(ui->lst_detalle_facturas);
+    }
+}
+
+void MainWindow::on_btn_detalle_ver_clicked()
+{
+    QString item = ui->lst_detalle_facturas->currentItem()->text();
+    QStringList split = item.split("-");
+    TADCliente *cliente;
+    cliente = listaCliente->obtener(ui->edt_detalle_buscar->text());
+
+    TADFactura *factura = cliente->getFacturas()->obtener(split.value(0), split.value(1).toInt());
+
+    if (factura != NULL)
+        factura->exportar();
 }

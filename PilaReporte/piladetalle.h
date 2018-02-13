@@ -1,5 +1,7 @@
 #ifndef PILADETALLE_H
 #define PILADETALLE_H
+#include <QPrinter>
+#include <QPainter>
 #include "nodoregistro.h"
 
 class PilaDetalle
@@ -8,6 +10,7 @@ class PilaDetalle
 public:
     PilaDetalle();
     ~PilaDetalle();
+    NodoRegistro *getCima();
 
     void push(TADDetalle *value);
     void pop();
