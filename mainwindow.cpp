@@ -300,7 +300,7 @@ void MainWindow::on_btn_detalle_buscar_clicked()
 {
     ui->lst_detalle_facturas->clear();
 
-    TADCliente *cliente;
+    TADCliente *cliente = NULL;
     cliente = listaCliente->obtener(ui->edt_detalle_buscar->text());
 
     if (cliente != NULL)
@@ -315,13 +315,22 @@ void MainWindow::on_btn_detalle_buscar_clicked()
 
 void MainWindow::on_btn_detalle_ver_clicked()
 {
-    QString item = ui->lst_detalle_facturas->currentItem()->text();
-    QStringList split = item.split("-");
-    TADCliente *cliente;
+    TADCliente *cliente = NULL;
+    TADFactura *factura = NULL;
+
     cliente = listaCliente->obtener(ui->edt_detalle_buscar->text());
 
-    TADFactura *factura = cliente->getFacturas()->obtener(split.value(0), split.value(1).toInt());
+    QString item = ui->lst_detalle_facturas->currentItem()->text();
+    QString serie = item.split("-").at(0);
+    int correlativo = item.split("-").at(1).toInt();
 
-    if (factura != NULL)
-        factura->exportar();
+    factura = cliente->getFacturas()->obtener(serie, correlativo);
+
+    DetalleDialog dialog(this);
+    dialog.setWindowTitle("Detalle factura");
+    dialog.setFactura(cliente, factura);
+    if (dialog.exec() == QDialog::Rejected)
+    {
+        // ELIMINAR FACTURA
+    }
 }

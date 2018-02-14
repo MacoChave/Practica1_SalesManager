@@ -1,12 +1,10 @@
 #ifndef LISTACLIENTE_H
 #define LISTACLIENTE_H
-#include <QString>
 #include <QFile>
 #include <QTableWidget>
 #include <QTextStream>
 #include <iostream>
 #include "nodocliente.h"
-#include "Tad/tadcliente.h"
 
 class ListaCliente
 {

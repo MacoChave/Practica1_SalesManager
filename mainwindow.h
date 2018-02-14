@@ -6,12 +6,13 @@
 #include <QJsonDocument>
 #include <QJsonArray>
 #include <QJsonObject>
-#include <QDebug>
 #include <QList>
+#include <QDebug>
 #include "ListaProducto/listaproducto.h"
 #include "ListaCliente/listacliente.h"
 #include "PilaReporte/piladetalle.h"
 #include "dialogeficiencia.h"
+#include "detalledialog.h"
 
 namespace Ui {
 class MainWindow;

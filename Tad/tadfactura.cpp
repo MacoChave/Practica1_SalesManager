@@ -55,58 +55,6 @@ PilaDetalle *TADFactura::getDetalles()
 
 void TADFactura::exportar()
 {
-    NodoRegistro *temp = detalle->getCima();
-
-    if (temp->getDetalle() != NULL)
-    {
-        QString archivo("FE-");
-        archivo.append(serie);
-        archivo.append("-");
-        archivo.append(QString::number(correlativo));
-        archivo.append(".pdf");
-        int linea = 20;
-
-        QPrinter printer;
-        printer.setOutputFormat(QPrinter::PdfFormat);
-        printer.setOutputFileName(archivo);
-        QPainter painter;
-        if (! painter.begin(&printer)) { // failed to open file
-          qWarning("failed to open file, is it writable?");
-          return;
-        }
-
-        painter.drawText(10, 25, "Cantidad");
-        painter.drawText(100, 25, "Código");
-        painter.drawText(200, 25, "Nombre");
-        painter.drawText(300, 25, "Precio Unitario");
-        painter.drawText(500, 25, "Descuento");
-        painter.drawText(600, 25, "Valor Total");
-
-        painter.drawLine(10, 34, 800, 34);
-        painter.drawLine(10, 36, 800, 36);
-
-        while (temp != NULL)
-        {
-            TADDetalle *detalle = temp->getDetalle();
-            if (detalle->getProducto() != NULL)
-            {
-                painter.drawText(10, 50 + linea, QString::number(detalle->getCantidad()));
-                painter.drawText(100, 50 + linea, detalle->getProducto()->getCodigo());
-                painter.drawText(200, 50 + linea, detalle->getProducto()->getNombre());
-                painter.drawText(300, 50 + linea, QString::number(detalle->getProducto()->getPrecio()));
-                painter.drawText(500, 50 + linea, QString::number(detalle->getDescuento()));
-                painter.drawText(600, 50 + linea, "000.00");
-            }
-
-            linea += 25;
-            temp = temp->getSiguiente();
-        }
-
-
-        painter.end();
-    }
-
-    std::cout << "Creación de pdf completo" << std::endl;
 }
 
 QString TADFactura::getNombreNodo()

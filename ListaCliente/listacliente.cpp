@@ -238,6 +238,7 @@ void ListaCliente::graficar()
     file.close();
 
     system("dot -Tpng -o listaCliente.png listaCliente.dot");
+    system("eog listaCliente.png");
 
     std::cout << "Creación de grafo completado" << std::endl;
 }

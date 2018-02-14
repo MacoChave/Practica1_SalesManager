@@ -268,6 +268,7 @@ void ListaProducto::graficar()
     file.close();
 
     system("dot -Tpng -o listaProducto.png listaProducto.dot");
+    system("eog listaProducto.png");
 
     std::cout << "Creación de grafo completado" << std::endl;
 }
