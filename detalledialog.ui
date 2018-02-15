@@ -167,6 +167,13 @@
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="QPushButton" name="btn_factura_volver">
+       <property name="text">
+        <string>Volver</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
   </layout>

@@ -6,14 +6,14 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    listaProducto = new ListaProducto();
-    listaCliente = new ListaCliente();
+    productos = new ListaProducto();
+    clientes = new ListaCliente();
 }
 
 MainWindow::~MainWindow()
 {
-    delete listaProducto;
-    delete listaCliente;
+    delete productos;
+    delete clientes;
     delete ui;
     qDebug() <<  "Se ha liberado memoria :D" << endl;
 }
@@ -54,6 +54,11 @@ void MainWindow::limpiarTabla(QTableWidget *table)
     table->setRowCount(0);
 }
 
+void MainWindow::limpiarLista(QListWidget *list)
+{
+    list->clear();
+}
+
 void MainWindow::on_btn_producto_aceptar_clicked()
 {
     QString codigo = ui->edt_producto_codigo->text();
@@ -64,42 +69,52 @@ void MainWindow::on_btn_producto_aceptar_clicked()
     if (codigoSeleccionado.isEmpty())
     {
         TADProducto *producto = new TADProducto(codigo, precio, nombre, descripcion);
-        if (listaProducto->agregar(producto))
+        if (productos->agregar(producto))
             qDebug() << "Se agregó con exito el registro" << endl;
         else
-            qDebug() << "No agregó el registro" << endl;
+        {
+            QMessageBox mensaje(this);
+            mensaje.setWindowTitle("Lista Producto");
+            mensaje.setText("No se puede agregar el registro");
+            mensaje.exec();
+        }
     }
     else
     {
-        TADProducto *busqueda = listaProducto->obtener(codigo);
+        TADProducto *busqueda = productos->obtener(codigo);
 
         if (busqueda == NULL || busqueda->comparar(codigoSeleccionado) == 0)
         {
-            TADProducto *producto = listaProducto->obtener(codigoSeleccionado);
+            TADProducto *producto = productos->obtener(codigoSeleccionado);
             producto->setCodigo(codigo);
             producto->setNombre(nombre);
             producto->setPrecio(precio);
             producto->setDescripcion(descripcion);
         }
         else
-            qDebug() << "Ya hay un registro con ese código" << endl;
+        {
+            QMessageBox mensaje(this);
+            mensaje.setWindowTitle("Lista Producto");
+            mensaje.setText("No se puede ingresar un registro repetido");
+            mensaje.exec();
+        }
     }
 
     on_btn_producto_limpiar_clicked();
     limpiarTabla(ui->tbl_producto_registro);
-    listaProducto->cargarDetalle(ui->tbl_producto_registro);
+    productos->cargarDetalle(ui->tbl_producto_registro);
 }
 
 void MainWindow::on_btn_producto_eliminar_clicked()
 {
-    if (listaProducto->eliminar(ui->edt_producto_codigo->text()))
+    if (productos->eliminar(ui->edt_producto_codigo->text()))
         qDebug() << "Se eliminó con exito el registro" <<  endl;
     else
         qDebug() << "No se eliminó el registro" <<  endl;
 
     on_btn_producto_limpiar_clicked();
     limpiarTabla(ui->tbl_producto_registro);
-    listaProducto->cargarDetalle(ui->tbl_producto_registro);
+    productos->cargarDetalle(ui->tbl_producto_registro);
 }
 
 void MainWindow::on_btn_producto_limpiar_clicked()
@@ -114,7 +129,7 @@ void MainWindow::on_btn_producto_limpiar_clicked()
 void MainWindow::on_btn_producto_detalle_clicked()
 {
     QTableWidgetItem *twi = ui->tbl_producto_registro->currentItem();
-    TADProducto *producto = listaProducto->obtener(twi->text());
+    TADProducto *producto = productos->obtener(twi->text());
 
     if (producto != NULL)
     {
@@ -129,7 +144,7 @@ void MainWindow::on_btn_producto_detalle_clicked()
 
 void MainWindow::on_btn_producto_grafico_clicked()
 {
-    listaProducto->graficar();
+    productos->graficar();
 }
 
 void MainWindow::on_btn_producto_carga_clicked()
@@ -138,24 +153,23 @@ void MainWindow::on_btn_producto_carga_clicked()
 
     if (!jsd.isEmpty())
     {
-        QJsonArray jsa = jsd.array();
+        QJsonArray jsa_cliente = jsd.array();
 
-        for (int i = 0; i < jsa.count(); i++)
+        for (int i = 0; i < jsa_cliente.count(); i++)
         {
-            QJsonValue jsv = jsa.at(i);
-            QJsonObject jso = jsv.toObject();
+            QJsonObject jso_cliente = jsa_cliente.at(i).toObject();
 
             TADProducto *producto = new TADProducto();
-            producto->setCodigo(jso["codigo"].toString());
-            producto->setNombre(jso["nombre"].toString());
-            producto->setPrecio(jso["precio"].toString().toDouble());
-            producto->setDescripcion(jso["descripcion"].toString());
+            producto->setCodigo(jso_cliente["codigo"].toString());
+            producto->setNombre(jso_cliente["nombre"].toString());
+            producto->setPrecio(jso_cliente["precio"].toString().toDouble());
+            producto->setDescripcion(jso_cliente["descripcion"].toString());
 
-            listaProducto->agregar(producto);
+            productos->agregar(producto);
         }
 
         limpiarTabla(ui->tbl_producto_registro);
-        listaProducto->cargarDetalle(ui->tbl_producto_registro);
+        productos->cargarDetalle(ui->tbl_producto_registro);
     }
     else
         qDebug() << "El fichero JSON está vacio" << endl;
@@ -172,40 +186,50 @@ void MainWindow::on_btn_cliente_aceptar_clicked()
     if (codigoSeleccionado.isEmpty())
     {
         TADCliente *cliente = new TADCliente(nit, nombre);
-        if (listaCliente->agregar(cliente))
+        if (clientes->agregar(cliente))
             qDebug() << "Se agregó con exito el registro" << endl;
         else
-            qDebug() << "No agregó el registro" << endl;
+        {
+            QMessageBox mensaje(this);
+            mensaje.setWindowTitle("Lista Cliente");
+            mensaje.setText("No se puede agregar el registro");
+            mensaje.exec();
+        }
     }
     else
     {
-        TADCliente *busqueda = listaCliente->obtener(nit);
+        TADCliente *busqueda = clientes->obtener(nit);
 
         if (busqueda == NULL || busqueda->comparar(codigoSeleccionado) == 0)
         {
-            TADCliente *cliente = listaCliente->obtener(codigoSeleccionado);
+            TADCliente *cliente = clientes->obtener(codigoSeleccionado);
             cliente->setNit(nit);
             cliente->setNombre(nombre);
         }
         else
-            qDebug() << "Ya hay un registro con ese código" << endl;
+        {
+            QMessageBox mensaje(this);
+            mensaje.setWindowTitle("Lista Cliente");
+            mensaje.setText("No se puede agregar un registro repetido");
+            mensaje.exec();
+        }
     }
 
     on_btn_cliente_limpiar_clicked();
     limpiarTabla(ui->tbl_cliente_registro);
-    listaCliente->cargarDetalle(ui->tbl_cliente_registro);
+    clientes->cargarDetalle(ui->tbl_cliente_registro);
 }
 
 void MainWindow::on_btn_cliente_eliminar_clicked()
 {
-    if (listaCliente->eliminar(ui->edt_cliente_nit->text()))
+    if (clientes->eliminar(ui->edt_cliente_nit->text()))
         qDebug() << "Se eliminó con exito el registro" <<  endl;
     else
         qDebug() << "No se eliminó el registro" <<  endl;
 
     on_btn_cliente_limpiar_clicked();
     limpiarTabla(ui->tbl_cliente_registro);
-    listaCliente->cargarDetalle(ui->tbl_cliente_registro);
+    clientes->cargarDetalle(ui->tbl_cliente_registro);
 }
 
 void MainWindow::on_btn_cliente_limpiar_clicked()
@@ -219,7 +243,7 @@ void MainWindow::on_btn_cliente_limpiar_clicked()
 void MainWindow::on_btn_cliente_detalle_clicked()
 {
     QTableWidgetItem *twi = ui->tbl_cliente_registro->currentItem();
-    TADCliente *cliente = listaCliente->obtener(twi->text());
+    TADCliente *cliente = clientes->obtener(twi->text());
 
     if (cliente != NULL)
     {
@@ -235,7 +259,7 @@ void MainWindow::on_btn_cliente_detalle_clicked()
 
 void MainWindow::on_btn_cliente_grafico_clicked()
 {
-    listaCliente->graficar();
+    clientes->graficar();
 }
 
 void MainWindow::on_btn_cliente_carga_clicked()
@@ -271,7 +295,7 @@ void MainWindow::on_btn_cliente_carga_clicked()
                 {
                     QJsonObject jso_productos = jsa_productos.at(z).toObject();
 
-                    TADProducto *producto = listaProducto->obtener(jso_productos["codigo"].toString());
+                    TADProducto *producto = productos->obtener(jso_productos["codigo"].toString());
                     TADDetalle *detalle = new TADDetalle();
                     detalle->setProducto(producto);
                     detalle->setCantidad(jso_productos["cantidad"].toInt());
@@ -283,11 +307,11 @@ void MainWindow::on_btn_cliente_carga_clicked()
                 cliente->setFactura(factura);
             }
 
-            listaCliente->agregar(cliente);
+            clientes->agregar(cliente);
         }
 
         limpiarTabla(ui->tbl_cliente_registro);
-        listaCliente->cargarDetalle(ui->tbl_cliente_registro);
+        clientes->cargarDetalle(ui->tbl_cliente_registro);
     }
     else
         qDebug() << "El fichero JSON está vacio" << endl;
@@ -298,10 +322,10 @@ void MainWindow::on_btn_cliente_carga_clicked()
 
 void MainWindow::on_btn_detalle_buscar_clicked()
 {
-    ui->lst_detalle_facturas->clear();
+    limpiarLista(ui->lst_detalle_facturas);
 
     TADCliente *cliente = NULL;
-    cliente = listaCliente->obtener(ui->edt_detalle_buscar->text());
+    cliente = clientes->obtener(ui->edt_detalle_buscar->text());
 
     if (cliente != NULL)
     {
@@ -318,7 +342,7 @@ void MainWindow::on_btn_detalle_ver_clicked()
     TADCliente *cliente = NULL;
     TADFactura *factura = NULL;
 
-    cliente = listaCliente->obtener(ui->edt_detalle_buscar->text());
+    cliente = clientes->obtener(ui->edt_detalle_buscar->text());
 
     QString item = ui->lst_detalle_facturas->currentItem()->text();
     QString serie = item.split("-").at(0);
@@ -330,7 +354,9 @@ void MainWindow::on_btn_detalle_ver_clicked()
     dialog.setWindowTitle("Detalle factura");
     dialog.setFactura(cliente, factura);
     if (dialog.exec() == QDialog::Rejected)
-    {
-        // ELIMINAR FACTURA
-    }
+        cliente->getFacturas()->eliminar(factura->getSerie(), factura->getCorrelativo());
+
+    limpiarLista(ui->lst_detalle_facturas);
+    ui->edt_detalle_no_facturas->setText(QString::number(cliente->getFacturas()->contar()));
+    cliente->getFacturas()->llenarLista(ui->lst_detalle_facturas);
 }

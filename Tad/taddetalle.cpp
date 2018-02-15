@@ -9,8 +9,7 @@ TADDetalle::TADDetalle()
 
 TADDetalle::~TADDetalle()
 {
-    if (producto != NULL)
-        producto = NULL;
+    producto = NULL;
     cantidad = 0;
     descuento = 0;
 }

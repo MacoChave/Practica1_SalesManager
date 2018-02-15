@@ -4,6 +4,10 @@ bool ListaFactura::agregar(NodoFactura *actual, TADFactura *value)
 {
     if (actual != NULL)
     {
+        if (actual->getItem()->comparar(value) == 0
+                || actual->getAnterior()->getItem()->comparar(value) == 0)
+            return false;
+
         if (actual->getItem()->comparar(value) > 0)
         {
             NodoFactura *nuevo = new NodoFactura(value);
@@ -14,10 +18,6 @@ bool ListaFactura::agregar(NodoFactura *actual, TADFactura *value)
 
             return true;
         }
-
-        if (actual->getItem()->comparar(value) == 0
-                || actual->getAnterior()->getItem()->comparar(value) == 0)
-            return false;
 
         return agregar(actual->getSiguiente(), value);
     }
@@ -151,30 +151,40 @@ TADFactura *ListaFactura::obtener(QString serie, int correlativo)
 
 bool ListaFactura::eliminar(QString serie, int correlativo)
 {
-    NodoFactura *nodo = buscar(serie, correlativo);
-
-    if (nodo != NULL)
+    if (contar() == 1)
     {
-        if (primero == nodo)
-        {
-            primero = primero->getSiguiente();
-            primero->setAnterior(NULL);
+        delete primero;
+        primero = ultimo = NULL;
+    }
+    else
+    {
+        NodoFactura *nodo = buscar(serie, correlativo);
 
-            delete nodo;
-            return true;
-        }
-        else
+        if (nodo != NULL)
         {
-            NodoFactura *anterior = nodo->getAnterior();
-            anterior->setSiguiente(nodo->getSiguiente());
+            if (primero == nodo)
+            {
+                primero = primero->getSiguiente();
+                primero->setAnterior(NULL);
 
-            if (ultimo == nodo)
-                ultimo = anterior;
+                delete nodo;
+                nodo = NULL;
+                return true;
+            }
             else
-                nodo->getSiguiente()->setAnterior(anterior);
+            {
+                NodoFactura *anterior = nodo->getAnterior();
+                anterior->setSiguiente(nodo->getSiguiente());
 
-            delete nodo;
-            return true;
+                if (ultimo == nodo)
+                    ultimo = anterior;
+                else
+                    nodo->getSiguiente()->setAnterior(anterior);
+
+                delete nodo;
+                nodo = NULL;
+                return true;
+            }
         }
     }
 

@@ -64,11 +64,12 @@ private:
     Ui::MainWindow *ui;
     QJsonDocument jsd;
     QString codigoSeleccionado;
-    ListaProducto *listaProducto;
-    ListaCliente *listaCliente;
+    ListaProducto *productos;
+    ListaCliente *clientes;
 
     void cargarJSON();
     void limpiarTabla(QTableWidget *table);
+    void limpiarLista(QListWidget *list);
 };
 
 #endif // MAINWINDOW_H

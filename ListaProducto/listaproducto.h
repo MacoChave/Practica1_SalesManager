@@ -38,6 +38,7 @@ public:
     void cargarDetalle(QTableWidget *table);
     bool agregarPrimero(TADProducto *producto);
     bool agregarUltimo(TADProducto *producto);
+    int contar();
 };
 
 #endif // LISTAPRODUCTO_H

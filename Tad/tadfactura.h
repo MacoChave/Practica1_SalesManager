@@ -29,7 +29,7 @@ public:
     QString getNombreNodo();
     QString toString();
     int comparar(TADFactura *value);
-    int comparar(QString serie, int correlativo);
+    int comparar(QString _serie, int _correlativo);
 };
 
 #endif // TADFACTURA_H

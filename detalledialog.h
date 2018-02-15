@@ -25,6 +25,8 @@ private slots:
 
     void on_btn_factura_exportar_clicked();
 
+    void on_btn_factura_volver_clicked();
+
 private:
     Ui::DetalleDialog *ui;
     TADFactura *factura;

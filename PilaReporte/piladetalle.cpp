@@ -90,7 +90,3 @@ double PilaDetalle::cargarDetalle(QTableWidget *table)
     return total;
 }
 
-void PilaDetalle::exportar()
-{
-
-}

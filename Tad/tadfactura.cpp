@@ -7,9 +7,11 @@ TADFactura::TADFactura()
 
 TADFactura::~TADFactura()
 {
+    if (detalle != NULL)
+        delete detalle;
     serie.clear();
+    fechaEmision.clear();
     correlativo = 0;
-    delete detalle;
     detalle = NULL;
 }
 
@@ -94,15 +96,15 @@ int TADFactura::comparar(TADFactura *value)
     return comparar;
 }
 
-int TADFactura::comparar(QString serie, int correlativo)
+int TADFactura::comparar(QString _serie, int _correlativo)
 {
-    int comparar = serie.compare(serie);
+    int comparar = serie.compare(_serie);
 
     if (comparar == 0)
     {
-        if (correlativo > correlativo)
+        if (correlativo > _correlativo)
             return 1;
-        if (correlativo < correlativo)
+        if (correlativo < _correlativo)
             return -1;
         else
             return 0;

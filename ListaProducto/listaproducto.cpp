@@ -2,6 +2,10 @@
 
 bool ListaProducto::agregar(NodoProducto *actual, NodoProducto *nuevo)
 {
+    if (actual->getItem()->comparar(nuevo->getItem()) == 0
+            || actual->getAnterior()->getItem()->comparar(nuevo->getItem()) == 0)
+        return false;
+
     if (actual->getItem()->comparar(nuevo->getItem()) > 0)
     {
         nuevo->setSiguiente(actual);
@@ -11,10 +15,6 @@ bool ListaProducto::agregar(NodoProducto *actual, NodoProducto *nuevo)
 
         return true;
     }
-
-    if (actual->getItem()->comparar(nuevo->getItem()) == 0
-            || actual->getAnterior()->getItem()->comparar(nuevo->getItem()) == 0)
-        return false;
 
     return agregar(actual->getSiguiente(), nuevo);
 }
@@ -153,6 +153,24 @@ bool ListaProducto::agregarUltimo(TADProducto *producto)
     return true;
 }
 
+int ListaProducto::contar()
+{
+    int i = 0;
+
+    NodoProducto *temp = primero;
+
+    while(temp != NULL)
+    {
+        i++;
+        if (temp->getSiguiente() != primero)
+            temp = temp->getSiguiente();
+        else
+            temp = NULL;
+    }
+
+    return i;
+}
+
 NodoProducto *ListaProducto::buscar(QString value)
 {
     if (!vacio())
@@ -185,40 +203,49 @@ TADProducto *ListaProducto::obtener(QString value)
 
 bool ListaProducto::eliminar(QString value)
 {
-    NodoProducto *nodo = buscar(value);
-
-    if (nodo != NULL)
+    if (contar() == 1)
     {
-        if (primero == nodo)
-        {
-            primero = primero->getSiguiente();
-            primero->setAnterior(ultimo);
-            ultimo->setSiguiente(primero);
-
-            delete nodo;
-            nodo = NULL;
-            return true;
-        }
-        else
-        {
-            NodoProducto *anterior = nodo->getAnterior();
-            anterior->setSiguiente(nodo->getSiguiente());
-
-            if (ultimo == nodo)
-            {
-                primero->setAnterior(anterior);
-                ultimo = anterior;
-            }
-            else
-                nodo->getSiguiente()->setAnterior(anterior);
-
-            delete nodo;
-            nodo = NULL;
-            return true;
-        }
+        delete primero;
+        primero = ultimo = NULL;
+        return true;
     }
     else
-        return false;
+    {
+        NodoProducto *nodo = buscar(value);
+
+        if (nodo != NULL)
+        {
+            if (primero == nodo)
+            {
+                primero = primero->getSiguiente();
+                primero->setAnterior(ultimo);
+                ultimo->setSiguiente(primero);
+
+                delete nodo;
+                nodo = NULL;
+                return true;
+            }
+            else
+            {
+                NodoProducto *anterior = nodo->getAnterior();
+                anterior->setSiguiente(nodo->getSiguiente());
+
+                if (ultimo == nodo)
+                {
+                    primero->setAnterior(anterior);
+                    ultimo = anterior;
+                }
+                else
+                    nodo->getSiguiente()->setAnterior(anterior);
+
+                delete nodo;
+                nodo = NULL;
+                return true;
+            }
+        }
+        else
+            return false;
+    }
 }
 
 void ListaProducto::graficar()

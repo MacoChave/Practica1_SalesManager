@@ -16,7 +16,8 @@ NodoFactura::NodoFactura(TADFactura *value)
 
 NodoFactura::~NodoFactura()
 {
-    delete item;
+    if (item != NULL)
+        delete item;
     item = NULL;
     anterior = NULL;
     siguiente = NULL;

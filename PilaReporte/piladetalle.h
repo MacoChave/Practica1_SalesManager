@@ -25,7 +25,6 @@ public:
     bool vacio();
     void limpiar();
     double cargarDetalle(QTableWidget *table);
-    void exportar();
 };
 
 #endif // PILADETALLE_H

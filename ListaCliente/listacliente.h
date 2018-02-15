@@ -3,6 +3,7 @@
 #include <QFile>
 #include <QTableWidget>
 #include <QTextStream>
+#include <QMessageBox>
 #include <iostream>
 #include "nodocliente.h"
 
@@ -37,6 +38,7 @@ public:
     bool agregarPrimero(TADCliente *cliente);
     bool agregarUltimo(TADCliente *cliente);
     void cargarDetalle(QTableWidget *table);
+    int contar();
 };
 
 #endif // LISTACLIENTE_H

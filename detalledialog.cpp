@@ -86,6 +86,11 @@ void DetalleDialog::on_btn_factura_exportar_clicked()
     accept();
 }
 
+void DetalleDialog::on_btn_factura_volver_clicked()
+{
+    accept();
+}
+
 void DetalleDialog::setFactura(TADCliente *_cliente, TADFactura *_factura)
 {
     cliente = _cliente;

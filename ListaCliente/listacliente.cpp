@@ -2,6 +2,10 @@
 
 bool ListaCliente::agregar(NodoCliente *anterior, NodoCliente *actual, NodoCliente *nuevo)
 {
+    if (actual->getItem()->comparar(nuevo->getItem()) == 0
+        || anterior->getItem()->comparar(nuevo->getItem()) == 0)
+        return false;
+
     if (actual->getItem()->comparar(nuevo->getItem()) > 0)
     {
         nuevo->setSiguiente(actual);
@@ -9,10 +13,6 @@ bool ListaCliente::agregar(NodoCliente *anterior, NodoCliente *actual, NodoClien
 
         return true;
     }
-
-    if (actual->getItem()->comparar(nuevo->getItem()) == 0
-        || anterior->getItem()->comparar(nuevo->getItem()) == 0)
-        return false;
 
     return agregar(actual, actual->getSiguiente(), nuevo);
 }
@@ -174,33 +174,43 @@ TADCliente *ListaCliente::obtener(QString value)
 
 bool ListaCliente::eliminar(QString value)
 {
-    NodoCliente *nodo = buscar(value);
-
-    if (nodo != NULL)
+    if (contar() == 1)
     {
-        if (primero == nodo)
-        {
-            primero = primero->getSiguiente();
+        delete primero;
+        primero = ultimo = NULL;
 
-            delete nodo;
-            nodo = NULL;
-            return true;
-        }
-        else
-        {
-            NodoCliente *anterior = buscarAnterior(primero, value);
-            anterior->setSiguiente(nodo->getSiguiente());
-
-            if (ultimo == nodo)
-                ultimo = anterior;
-
-            delete nodo;
-            nodo = NULL;
-            return true;
-        }
+        return true;
     }
     else
-        return false;
+    {
+        NodoCliente *nodo = buscar(value);
+
+        if (nodo != NULL)
+        {
+            if (primero == nodo)
+            {
+                primero = primero->getSiguiente();
+
+                delete nodo;
+                nodo = NULL;
+                return true;
+            }
+            else
+            {
+                NodoCliente *anterior = buscarAnterior(primero, value);
+                anterior->setSiguiente(nodo->getSiguiente());
+
+                if (ultimo == nodo)
+                    ultimo = anterior;
+
+                delete nodo;
+                nodo = NULL;
+                return true;
+            }
+        }
+        else
+            return false;
+    }
 }
 
 void ListaCliente::graficar()
@@ -259,4 +269,19 @@ void ListaCliente::cargarDetalle(QTableWidget *table)
             temp = temp->getSiguiente();
         }
     }
+}
+
+int ListaCliente::contar()
+{
+    int i = 0;
+
+    NodoCliente *temp = primero;
+
+    while (primero != NULL)
+    {
+        i++;
+        temp = temp->getSiguiente();
+    }
+
+    return i;
 }
