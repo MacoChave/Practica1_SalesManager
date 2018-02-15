@@ -60,6 +60,8 @@ private slots:
 
     void on_btn_detalle_ver_clicked();
 
+    void on_btn_producto_buscar_clicked();
+
 private:
     Ui::MainWindow *ui;
     QJsonDocument jsd;

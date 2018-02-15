@@ -142,6 +142,26 @@ void MainWindow::on_btn_producto_detalle_clicked()
     }
 }
 
+
+void MainWindow::on_btn_producto_buscar_clicked()
+{
+    QString filter = ui->edt_producto_buscar->text();
+    for(int i = 0; i < ui->tbl_producto_registro->rowCount(); i++)
+    {
+        bool match = false;
+        for(int j = 0; j < ui->tbl_producto_registro->columnCount(); j++)
+        {
+            QTableWidgetItem *item = ui->tbl_producto_registro->item(i, j);
+            if(item->text().contains(filter))
+            {
+                match = true;
+                break;
+            }
+        }
+        ui->tbl_producto_registro->setRowHidden(i, !match);
+    }
+}
+
 void MainWindow::on_btn_producto_grafico_clicked()
 {
     productos->graficar();
