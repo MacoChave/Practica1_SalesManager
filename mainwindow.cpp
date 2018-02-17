@@ -8,12 +8,14 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     productos = new ListaProducto();
     clientes = new ListaCliente();
+    contador_correlativo = 0;
 }
 
 MainWindow::~MainWindow()
 {
     delete productos;
     delete clientes;
+    series.clear();
     delete ui;
     qDebug() <<  "Se ha liberado memoria :D" << endl;
 }
@@ -28,6 +30,16 @@ void MainWindow::on_actionEficiencia_triggered()
     DialogEficiencia dialog(this);
     dialog.setWindowTitle("Eficiencia de algoritmo");
     dialog.exec();
+}
+
+void MainWindow::on_actionFacturar_triggered()
+{
+    FacturarDialog dialog(this);
+    dialog.setWindowTitle("Facturar");
+    dialog.setDatos(productos, clientes, series, contador_correlativo);
+    dialog.exec();
+    limpiarTabla(ui->tbl_cliente_registro);
+    clientes->cargarDetalle(ui->tbl_cliente_registro);
 }
 
 void MainWindow::cargarJSON()
@@ -308,6 +320,13 @@ void MainWindow::on_btn_cliente_carga_clicked()
                 factura->setSerie(jso_facturas["serie"].toString());
                 factura->setCorrelativo(jso_facturas["correlativo"].toString().toInt());
                 factura->setFechaEmision(jso_facturas["fecha"].toString());
+
+                if (!series.contains(factura->getSerie()))
+                    series << factura->getSerie();
+                if (factura->getCorrelativo() > contador_correlativo)
+                    contador_correlativo = factura->getCorrelativo();
+
+                qDebug() << series << " " << contador_correlativo << endl;
 
                 QJsonArray jsa_productos = jso_facturas["productos"].toArray();
 

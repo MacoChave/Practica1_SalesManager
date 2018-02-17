@@ -13,6 +13,7 @@
 #include "PilaReporte/piladetalle.h"
 #include "dialogeficiencia.h"
 #include "detalledialog.h"
+#include "facturardialog.h"
 
 namespace Ui {
 class MainWindow;
@@ -62,8 +63,12 @@ private slots:
 
     void on_btn_producto_buscar_clicked();
 
+    void on_actionFacturar_triggered();
+
 private:
     Ui::MainWindow *ui;
+    QList<QString> series;
+    int contador_correlativo;
     QJsonDocument jsd;
     QString codigoSeleccionado;
     ListaProducto *productos;

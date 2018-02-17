@@ -456,6 +456,7 @@
     <property name="title">
      <string>Acciones</string>
     </property>
+    <addaction name="actionFacturar"/>
     <addaction name="actionEficiencia"/>
     <addaction name="actionSalir"/>
    </widget>
@@ -469,6 +470,11 @@
   <action name="actionEficiencia">
    <property name="text">
     <string>Eficiencia</string>
+   </property>
+  </action>
+  <action name="actionFacturar">
+   <property name="text">
+    <string>Facturar</string>
    </property>
   </action>
  </widget>

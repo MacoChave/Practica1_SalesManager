@@ -27,7 +27,8 @@ SOURCES += main.cpp\
     Tad/taddetalle.cpp \
     PilaReporte/nodoregistro.cpp \
     PilaReporte/piladetalle.cpp \
-    detalledialog.cpp
+    detalledialog.cpp \
+    facturardialog.cpp
 
 HEADERS  += mainwindow.h \
     Tad/tadproducto.h \
@@ -46,8 +47,10 @@ HEADERS  += mainwindow.h \
     Tad/taddetalle.h \
     PilaReporte/nodoregistro.h \
     PilaReporte/piladetalle.h \
-    detalledialog.h
+    detalledialog.h \
+    facturardialog.h
 
 FORMS    += mainwindow.ui \
     dialogeficiencia.ui \
-    detalledialog.ui
+    detalledialog.ui \
+    facturardialog.ui
