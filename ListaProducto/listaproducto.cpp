@@ -146,6 +146,60 @@ bool ListaProducto::agregar(TADProducto *producto)
         return true;
 }
 
+bool ListaProducto::actualizar(QString _codigo, TADProducto *producto)
+{
+    if (producto->comparar(_codigo) != 0)
+    {
+        if (buscar(_codigo) != NULL)
+            return false;
+
+        if (contar() == 1)
+        {
+            producto->setCodigo(_codigo);
+            return true;
+        }
+
+        NodoProducto *temp = buscar(producto->getCodigo());
+        temp->getAnterior()->setSiguiente(temp->getSiguiente());
+        temp->getSiguiente()->setAnterior(temp->getAnterior());
+
+        if (temp == primero)
+            primero = temp->getSiguiente();
+        if (temp == ultimo)
+            ultimo = temp->getAnterior();
+
+        producto->setCodigo(_codigo);
+        temp->setAnterior(NULL);
+        temp->setSiguiente(NULL);
+
+        if (primero->getItem()->comparar(producto) > 0)
+        {
+            ultimo->setSiguiente(temp);
+            primero->setAnterior(temp);
+            temp->setSiguiente(primero);
+            temp->setAnterior(ultimo);
+            primero = temp;
+
+            return true;
+        }
+
+        if (producto->comparar(ultimo->getItem()) > 0)
+        {
+            ultimo->setSiguiente(temp);
+            primero->setAnterior(temp);
+            temp->setSiguiente(primero);
+            temp->setAnterior(ultimo);
+            ultimo = temp;
+
+            return true;
+        }
+
+        return agregar(primero->getSiguiente(), temp);
+    }
+    else
+        return true;
+}
+
 bool ListaProducto::agregarPrimero(TADProducto *producto)
 {
     NodoProducto *nuevo = new NodoProducto(producto);

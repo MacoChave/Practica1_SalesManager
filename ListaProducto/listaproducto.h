@@ -33,6 +33,7 @@ public:
 
     bool vacio();
     bool agregar(TADProducto *producto);
+    bool actualizar(QString _codigo, TADProducto *producto);
     NodoProducto *buscar(QString value);
     TADProducto *obtener(QString value);
     TADProducto *busquedaBinaria(QString value);

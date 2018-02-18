@@ -31,6 +31,7 @@ public:
 
     bool vacio();
     bool agregar(TADCliente *cliente);
+    bool actualizar(QString _nit, TADCliente *cliente);
     NodoCliente *buscar(QString value);
     TADCliente *obtener(QString value);
     bool eliminar(QString value);

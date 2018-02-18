@@ -35,7 +35,12 @@ NodoCliente *ListaCliente::buscarAnterior(NodoCliente *actual, QString value)
     if (actual->getSiguiente()->getItem()->comparar(value) == 0)
         return actual;
     else
-        return buscarAnterior(actual->getSiguiente(), value);
+    {
+        if (actual->getSiguiente()->getItem()->comparar(value) < 0)
+            return buscarAnterior(actual->getSiguiente(), value);
+        else
+            return NULL;
+    }
 }
 
 ListaCliente::ListaCliente()
@@ -106,6 +111,54 @@ bool ListaCliente::agregar(TADCliente *cliente)
     }
     else
         return true;
+}
+
+bool ListaCliente::actualizar(QString _nit, TADCliente *cliente)
+{
+    if (cliente->comparar(_nit) != 0)
+    {
+        NodoCliente *temp = buscar(primero, cliente->getNit());
+
+        if (contar() == 1)
+        {
+            cliente->setNit(_nit);
+            return true;
+        }
+
+        if (primero == temp)
+            primero = temp->getSiguiente();
+        else
+        {
+            NodoCliente *anterior = buscarAnterior(primero, cliente->getNit());
+            anterior->setSiguiente(temp->getSiguiente());
+
+            if (temp == ultimo)
+                ultimo = anterior;
+        }
+
+        temp->setSiguiente(NULL);
+        cliente->setNit(_nit);
+
+        if (primero->getItem()->comparar(_nit) > 0)
+        {
+            temp->setSiguiente(primero);
+            primero = temp;
+
+            return true;
+        }
+        if (ultimo->getItem()->comparar(_nit) < 0)
+        {
+            ultimo->setSiguiente(temp);
+            ultimo = temp;
+
+            return true;
+        }
+
+        return agregar(primero, primero->getSiguiente(), temp);
+    }
+    else
+        return true;
+
 }
 
 bool ListaCliente::agregarPrimero(TADCliente *cliente)
@@ -277,7 +330,7 @@ int ListaCliente::contar()
 
     NodoCliente *temp = primero;
 
-    while (primero != NULL)
+    while (temp != NULL)
     {
         i++;
         temp = temp->getSiguiente();

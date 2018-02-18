@@ -82,32 +82,29 @@ void MainWindow::on_btn_producto_aceptar_clicked()
     {
         TADProducto *producto = new TADProducto(codigo, precio, nombre, descripcion);
         if (productos->agregar(producto))
-            qDebug() << "Se agregó con exito el registro" << endl;
+            qDebug() << "Se agregó con éxito el registro" << endl;
         else
         {
             QMessageBox mensaje(this);
             mensaje.setWindowTitle("Lista Producto");
-            mensaje.setText("No se puede agregar el registro");
+            mensaje.setText("Registro existente con el mismo código");
             mensaje.exec();
         }
     }
     else
     {
-        TADProducto *busqueda = productos->obtener(codigo);
+        TADProducto *busqueda = productos->obtener(codigoSeleccionado);
+        busqueda->setNombre(nombre);
+        busqueda->setDescripcion(descripcion);
+        busqueda->setPrecio(precio);
 
-        if (busqueda == NULL || busqueda->comparar(codigoSeleccionado) == 0)
-        {
-            TADProducto *producto = productos->obtener(codigoSeleccionado);
-            producto->setCodigo(codigo);
-            producto->setNombre(nombre);
-            producto->setPrecio(precio);
-            producto->setDescripcion(descripcion);
-        }
+        if (productos->actualizar(codigo, busqueda))
+            qDebug() << "Producto actualizado con éxito" << endl;
         else
         {
             QMessageBox mensaje(this);
             mensaje.setWindowTitle("Lista Producto");
-            mensaje.setText("No se puede ingresar un registro repetido");
+            mensaje.setText("No se pudo cambiar el codigo. Pues ya existe registrado");
             mensaje.exec();
         }
     }
@@ -233,19 +230,16 @@ void MainWindow::on_btn_cliente_aceptar_clicked()
     }
     else
     {
-        TADCliente *busqueda = clientes->obtener(nit);
+        TADCliente *busqueda = clientes->obtener(codigoSeleccionado);
+        busqueda->setNombre(nombre);
 
-        if (busqueda == NULL || busqueda->comparar(codigoSeleccionado) == 0)
-        {
-            TADCliente *cliente = clientes->obtener(codigoSeleccionado);
-            cliente->setNit(nit);
-            cliente->setNombre(nombre);
-        }
+        if (clientes->actualizar(nit, busqueda))
+            qDebug() << "Cliente actualizado con éxito" << endl;
         else
         {
             QMessageBox mensaje(this);
             mensaje.setWindowTitle("Lista Cliente");
-            mensaje.setText("No se puede agregar un registro repetido");
+            mensaje.setText("No se pudo actualizar el nit. Pues ya existe registrado");
             mensaje.exec();
         }
     }
