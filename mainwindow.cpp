@@ -140,17 +140,20 @@ void MainWindow::on_btn_producto_limpiar_clicked()
 
 void MainWindow::on_btn_producto_detalle_clicked()
 {
-    QTableWidgetItem *twi = ui->tbl_producto_registro->currentItem();
-    TADProducto *producto = productos->obtener(twi->text());
-
-    if (producto != NULL)
+    if (ui->tbl_producto_registro->rowCount() > 0)
     {
-        ui->edt_producto_codigo->setText(producto->getCodigo());
-        ui->edt_producto_nombre->setText(producto->getNombre());
-        ui->edt_producto_precio->setText(QString::number(producto->getPrecio()));
-        ui->edt_producto_descripcion->setText(producto->getDescripcion());
+        QTableWidgetItem *twi = ui->tbl_producto_registro->currentItem();
+        TADProducto *producto = productos->busquedaBinaria(twi->text());
 
-        codigoSeleccionado = producto->getCodigo();
+        if (producto != NULL)
+        {
+            ui->edt_producto_codigo->setText(producto->getCodigo());
+            ui->edt_producto_nombre->setText(producto->getNombre());
+            ui->edt_producto_precio->setText(QString::number(producto->getPrecio()));
+            ui->edt_producto_descripcion->setText(producto->getDescripcion());
+
+            codigoSeleccionado = producto->getCodigo();
+        }
     }
 }
 
@@ -274,18 +277,21 @@ void MainWindow::on_btn_cliente_limpiar_clicked()
 
 void MainWindow::on_btn_cliente_detalle_clicked()
 {
-    QTableWidgetItem *twi = ui->tbl_cliente_registro->currentItem();
-    TADCliente *cliente = clientes->obtener(twi->text());
-
-    if (cliente != NULL)
+    if (ui->tbl_cliente_registro->rowCount() > 0)
     {
-        int count = cliente->getFacturas()->contar();
+        QTableWidgetItem *twi = ui->tbl_cliente_registro->currentItem();
+        TADCliente *cliente = clientes->obtener(twi->text());
 
-        ui->edt_cliente_nit->setText(cliente->getNit());
-        ui->edt_cliente_nombre->setText(cliente->getNombre());
-        ui->edt_cliente_no_facturas->setText(QString::number(count));
+        if (cliente != NULL)
+        {
+            int count = cliente->getFacturas()->contar();
 
-        codigoSeleccionado = cliente->getNit();
+            ui->edt_cliente_nit->setText(cliente->getNit());
+            ui->edt_cliente_nombre->setText(cliente->getNombre());
+            ui->edt_cliente_no_facturas->setText(QString::number(count));
+
+            codigoSeleccionado = cliente->getNit();
+        }
     }
 }
 

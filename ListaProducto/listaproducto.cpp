@@ -32,6 +32,43 @@ NodoProducto *ListaProducto::buscar(NodoProducto *actual, QString value)
     }
 }
 
+TADProducto *ListaProducto::busquedaBinaria(int a, int b, NodoProducto *nodo_a, NodoProducto *nodo_b, QString value)
+{
+    int m = 0;
+    m = (b - a) / 2;
+
+    NodoProducto *nodo_m;
+    nodo_m = nodo_a;
+
+    for (int i = 0; i <= m; i++)
+        nodo_m = nodo_m->getSiguiente();
+
+    qDebug() << "*********************************************" << endl;
+    qDebug() << "Encontrar: " << value << endl;
+    qDebug() << "---------------------------------------------" << endl;
+    qDebug() << "Extremo a: " << nodo_a->getItem()->getCodigo() << endl;
+    qDebug() << "Medio: " << nodo_m->getItem()->getCodigo() << endl;
+    qDebug() << "Extremo b: " << nodo_b->getItem()->getCodigo() << endl;
+    qDebug() << "*********************************************" << endl;
+
+    if (nodo_a->getItem()->comparar(value) == 0)
+        return nodo_a->getItem();
+    if (nodo_b->getItem()->comparar(value) == 0)
+        return nodo_b->getItem();
+    if (nodo_m->getItem()->comparar(value) == 0)
+        return nodo_m->getItem();
+    else
+    {
+        if (nodo_m->getItem()->comparar(value) > 0)
+            return busquedaBinaria(0, m, nodo_a, nodo_m, value);
+        else
+        {
+            b = b - m;
+            return busquedaBinaria(0, b, nodo_m, nodo_b, value);
+        }
+    }
+}
+
 ListaProducto::ListaProducto()
 {
     primero = ultimo = NULL;
@@ -199,6 +236,46 @@ TADProducto *ListaProducto::obtener(QString value)
         return nodo->getItem();
     else
         return NULL;
+}
+
+TADProducto *ListaProducto::busquedaBinaria(QString value)
+{
+    int a, b, m = 0;
+    b = contar();
+    m = (b - a) / 2;
+
+    NodoProducto *nodo_a, *nodo_b, *nodo_m;
+    nodo_a = primero;
+    nodo_b = ultimo;
+    nodo_m = primero;
+
+    for (int i = 0; i < m; i++)
+        nodo_m = nodo_m->getSiguiente();
+
+    qDebug() << "*********************************************" << endl;
+    qDebug() << "Encontrar: " << value;
+    qDebug() << "---------------------------------------------";
+    qDebug() << "Extremo a: " << nodo_a->getItem()->getCodigo();
+    qDebug() << "Medio: " << nodo_m->getItem()->getCodigo();
+    qDebug() << "Extremo b: " << nodo_b->getItem()->getCodigo();
+    qDebug() << "*********************************************" << endl;
+
+    if (nodo_a->getItem()->comparar(value) == 0)
+        return nodo_a->getItem();
+    if (nodo_b->getItem()->comparar(value) == 0)
+        return nodo_b->getItem();
+    if (nodo_m->getItem()->comparar(value) == 0)
+        return nodo_m->getItem();
+    else
+    {
+        if (nodo_m->getItem()->comparar(value) > 0)
+            return busquedaBinaria(0, m, nodo_a, nodo_m, value);
+        else
+        {
+            b = b - m;
+            return busquedaBinaria(0, b, nodo_m, nodo_b, value);
+        }
+    }
 }
 
 bool ListaProducto::eliminar(QString value)

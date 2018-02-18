@@ -5,6 +5,7 @@
 #include <QTableWidget>
 #include <QTextStream>
 #include <iostream>
+#include <QDebug>
 #include "nodoproducto.h"
 #include "Tad/tadproducto.h"
 
@@ -20,6 +21,7 @@ class ListaProducto
 
     bool agregar(NodoProducto *actual, NodoProducto *nuevo);
     NodoProducto *buscar(NodoProducto *actual, QString value);
+    TADProducto *busquedaBinaria(int a, int b, NodoProducto *nodo_a, NodoProducto *nodo_b, QString value);
 public:
     ListaProducto();
     ~ListaProducto();
@@ -33,6 +35,7 @@ public:
     bool agregar(TADProducto *producto);
     NodoProducto *buscar(QString value);
     TADProducto *obtener(QString value);
+    TADProducto *busquedaBinaria(QString value);
     bool eliminar(QString value);
     void graficar();
     void cargarDetalle(QTableWidget *table);
