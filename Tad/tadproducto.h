@@ -1,6 +1,7 @@
 #ifndef TADPRODUCTO_H
 #define TADPRODUCTO_H
 #include <QString>
+#include <QRegExp>
 
 class TADProducto
 {

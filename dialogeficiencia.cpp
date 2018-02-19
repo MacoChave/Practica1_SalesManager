@@ -35,9 +35,9 @@ double DialogEficiencia::cargarEstructura(int count)
         lista->agregarUltimo(producto);
     }
 
-    delete lista;
     t2 = clock();
     secs = (double)(t2 - t1) / CLOCKS_PER_SEC;
+    delete lista;
 
     return secs;
 }
@@ -61,9 +61,9 @@ double DialogEficiencia::cargarQList(int count)
         lista->push_back(producto);
     }
 
-    lista->clear();
     t2 = clock();
     secs = (double)(t2 - t1) / CLOCKS_PER_SEC;
+    lista->clear();
 
     return secs;
 }

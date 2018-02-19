@@ -14,7 +14,7 @@ void TADProducto::setCodigo(QString value)
 {
     codigo = value;
 
-    value.remove("P");
+    value.remove(QRegExp("[A-Za-z]"));
     id = value.toInt();
 }
 
