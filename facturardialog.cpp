@@ -35,6 +35,8 @@ void FacturarDialog::llenarComboBox()
     }
 
     ui->edt_facturar_correlativo->setText(QString::number(correlativo));
+    QDate currentDate = QDate::currentDate();
+    ui->edt_facturar_fecha->setText(currentDate.toString("dd/MM/yy"));
     correlativo++;
 }
 
@@ -232,13 +234,23 @@ void FacturarDialog::on_btn_facturar_agregar_clicked()
     _descuento = ui->edt_facturar_descuento->text();
 
     TADProducto *producto = productos->obtener(_codigo_prod);
-    TADDetalle *detalle = new TADDetalle();
-    detalle->setProducto(producto);
-    detalle->setCantidad(_cantidad.toInt());
-    detalle->setDescuento(_descuento.toDouble());
+    if (producto != NULL)
+    {
+        TADDetalle *detalle = new TADDetalle();
+        detalle->setProducto(producto);
+        detalle->setCantidad(_cantidad.toInt());
+        detalle->setDescuento(_descuento.toDouble());
 
-    factura->setDetalle(detalle);
-    limpiarCampos();
-    limpiarTabla();
-    cargarDetalle();
+        factura->setDetalle(detalle);
+        limpiarCampos();
+        limpiarTabla();
+        cargarDetalle();
+    }
+    else
+    {
+        QMessageBox mensaje(this);
+        mensaje.setText("No se encontró el producto");
+        mensaje.setWindowTitle("Error al buscar producto");
+        mensaje.exec();
+    }
 }

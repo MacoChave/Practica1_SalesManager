@@ -6,6 +6,7 @@
 #include <QList>
 #include <QDebug>
 #include <QInputDialog>
+#include <QDate>
 #include "ListaFactura/listafactura.h"
 #include "ListaCliente/listacliente.h"
 #include "ListaProducto/listaproducto.h"

@@ -10,6 +10,7 @@ class TADProducto
     double precio;
     QString nombre;
     QString descripcion;
+    int ocupado;
 public:
     TADProducto();
     TADProducto(QString _codigo, double _precio, QString _nombre, QString _descripcion);
@@ -29,6 +30,9 @@ public:
     QString toString();
     int comparar(TADProducto *value);
     int comparar(QString value);
+    int isOcupado();
+    void setOcupado();
+    void setDesocupado();
 };
 
 #endif // TADPRODUCTO_H

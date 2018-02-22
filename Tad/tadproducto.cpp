@@ -95,6 +95,21 @@ int TADProducto::comparar(QString value)
     }
 }
 
+int TADProducto::isOcupado()
+{
+    return ocupado;
+}
+
+void TADProducto::setOcupado()
+{
+    ocupado++;
+}
+
+void TADProducto::setDesocupado()
+{
+    ocupado--;
+}
+
 TADProducto::TADProducto()
 {
     id = 0;
@@ -102,6 +117,7 @@ TADProducto::TADProducto()
     precio = 0;
     nombre.clear();
     descripcion.clear();
+    ocupado = false;
 }
 
 TADProducto::TADProducto(QString _codigo, double _precio, QString _nombre, QString _descripcion)
@@ -110,6 +126,7 @@ TADProducto::TADProducto(QString _codigo, double _precio, QString _nombre, QStri
     precio = _precio;
     nombre = _nombre;
     descripcion = _descripcion;
+    ocupado = false;
 
     _codigo.remove("P");
     id = _codigo.toInt();
@@ -122,4 +139,5 @@ TADProducto::~TADProducto()
     precio = 0;
     nombre.clear();
     descripcion.clear();
+    ocupado = false;
 }

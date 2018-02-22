@@ -229,6 +229,9 @@ bool ListaCliente::eliminar(QString value)
 {
     if (contar() == 1)
     {
+        if (primero->getItem()->getNit().compare("0") == 0)
+            return false;
+
         delete primero;
         primero = ultimo = NULL;
 
@@ -240,6 +243,9 @@ bool ListaCliente::eliminar(QString value)
 
         if (nodo != NULL)
         {
+            if (nodo->getItem()->getNit().compare("0") == 0)
+                return false;
+
             if (primero == nodo)
             {
                 primero = primero->getSiguiente();

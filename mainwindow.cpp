@@ -119,7 +119,12 @@ void MainWindow::on_btn_producto_eliminar_clicked()
     if (productos->eliminar(ui->edt_producto_codigo->text()))
         qDebug() << "Se eliminó con exito el registro" <<  endl;
     else
-        qDebug() << "No se eliminó el registro" <<  endl;
+    {
+        QMessageBox mensaje(this);
+        mensaje.setText("No es posible eliminar el producto. Es posible que esté en uso");
+        mensaje.setWindowTitle("Error al eliminar el producto");
+        mensaje.exec();
+    }
 
     on_btn_producto_limpiar_clicked();
     limpiarTabla(ui->tbl_producto_registro);
@@ -254,7 +259,12 @@ void MainWindow::on_btn_cliente_eliminar_clicked()
     if (clientes->eliminar(ui->edt_cliente_nit->text()))
         qDebug() << "Se eliminó con exito el registro" <<  endl;
     else
-        qDebug() << "No se eliminó el registro" <<  endl;
+    {
+        QMessageBox mensaje(this);
+        mensaje.setText("No es posible eliminar el cliente.");
+        mensaje.setWindowTitle("Error al eliminar el cliente");
+        mensaje.exec();
+    }
 
     on_btn_cliente_limpiar_clicked();
     limpiarTabla(ui->tbl_cliente_registro);
@@ -300,20 +310,24 @@ void MainWindow::on_btn_cliente_carga_clicked()
 
     if (!jsd.isEmpty())
     {
+        /* ARRAY CLIENTES */
         QJsonArray jsa = jsd.array();
 
         for (int i = 0; i < jsa.count(); i++)
         {
+            /* OBJETO CLIENTE */
             QJsonObject jso = jsa.at(i).toObject();
 
             TADCliente *cliente = new TADCliente();
             cliente->setNit(jso["NIT"].toString());
             cliente->setNombre(jso["nombre"].toString());
 
+            /* ARRAY FACTURAS */
             QJsonArray jsa_facturas = jso["facturas"].toArray();
 
             for (int j = 0; j < jsa_facturas.count(); j++)
             {
+                /* OBJETO FACTURA */
                 QJsonObject jso_facturas = jsa_facturas.at(j).toObject();
 
                 TADFactura *factura = new TADFactura();
@@ -328,13 +342,19 @@ void MainWindow::on_btn_cliente_carga_clicked()
 
                 qDebug() << series << " " << contador_correlativo << endl;
 
+                /* ARRAY PRODUCTOS */
                 QJsonArray jsa_productos = jso_facturas["productos"].toArray();
 
                 for (int z = 0; z < jsa_productos.count(); z++)
                 {
+                    /* OBJETO PRODUCTO */
                     QJsonObject jso_productos = jsa_productos.at(z).toObject();
 
                     TADProducto *producto = productos->obtener(jso_productos["codigo"].toString());
+                    if (producto == NULL)
+                        continue;
+
+                    producto->setOcupado();
                     TADDetalle *detalle = new TADDetalle();
                     detalle->setProducto(producto);
                     detalle->setCantidad(jso_productos["cantidad"].toInt());
@@ -342,8 +362,19 @@ void MainWindow::on_btn_cliente_carga_clicked()
 
                     factura->setDetalle(detalle);
                 }
+                if (factura->getDetalles()->vacio())
+                {
+                    delete factura;
+                    factura = NULL;
+                    continue;
+                }
 
                 cliente->setFactura(factura);
+            }
+            if (cliente->getFacturas()->contar() < 1)
+            {
+                delete cliente->getFacturas();
+                cliente->setFactura(NULL);
             }
 
             clientes->agregar(cliente);

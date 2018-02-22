@@ -15,7 +15,10 @@ NodoRegistro::NodoRegistro(TADDetalle *value)
 NodoRegistro::~NodoRegistro()
 {
     if (detalle != NULL)
+    {
+        detalle->getProducto()->setDesocupado();
         delete detalle;
+    }
     detalle = NULL;
     siguiente = NULL;
 }

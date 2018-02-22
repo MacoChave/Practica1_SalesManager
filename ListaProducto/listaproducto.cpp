@@ -294,7 +294,9 @@ TADProducto *ListaProducto::obtener(QString value)
 
 TADProducto *ListaProducto::busquedaBinaria(QString value)
 {
-    int a, b, m = 0;
+    int a = 0;
+    int b = 0;
+    int m = 0;
     b = contar();
     m = (b - a) / 2;
 
@@ -336,6 +338,9 @@ bool ListaProducto::eliminar(QString value)
 {
     if (contar() == 1)
     {
+        if (primero->getItem()->isOcupado() > 0)
+            return false;
+
         delete primero;
         primero = ultimo = NULL;
         return true;
@@ -348,6 +353,9 @@ bool ListaProducto::eliminar(QString value)
         {
             if (primero == nodo)
             {
+                if (nodo->getItem()->isOcupado() > 0)
+                    return false;
+
                 primero = primero->getSiguiente();
                 primero->setAnterior(ultimo);
                 ultimo->setSiguiente(primero);
@@ -358,6 +366,9 @@ bool ListaProducto::eliminar(QString value)
             }
             else
             {
+                if (nodo->getItem()->isOcupado() > 0)
+                    return false;
+
                 NodoProducto *anterior = nodo->getAnterior();
                 anterior->setSiguiente(nodo->getSiguiente());
 
