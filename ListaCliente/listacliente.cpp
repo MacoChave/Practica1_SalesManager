@@ -43,6 +43,19 @@ NodoCliente *ListaCliente::buscarAnterior(NodoCliente *actual, QString value)
     }
 }
 
+bool ListaCliente::transpasarFacturas(NodoCliente *origen)
+{
+    NodoCliente *destino = NULL;
+
+    agregar(new TADCliente("0", "CF"));
+    destino = buscar("0");
+
+    destino->getItem()->agregarFacturas(origen->getItem()->getFacturas());
+    origen->getItem()->setFactura(NULL);
+
+    return true;
+}
+
 ListaCliente::ListaCliente()
 {
     primero = ultimo = NULL;
@@ -227,15 +240,21 @@ TADCliente *ListaCliente::obtener(QString value)
 
 bool ListaCliente::eliminar(QString value)
 {
+    if (value.compare("0") == 0)
+        return false;
+
     if (contar() == 1)
     {
-        if (primero->getItem()->getNit().compare("0") == 0)
+        if (primero->getItem()->comparar(value) == 0)
+        {
+            transpasarFacturas(primero);
+            delete primero;
+            primero = ultimo = NULL;
+
+            return true;
+        }
+        else
             return false;
-
-        delete primero;
-        primero = ultimo = NULL;
-
-        return true;
     }
     else
     {
@@ -243,17 +262,8 @@ bool ListaCliente::eliminar(QString value)
 
         if (nodo != NULL)
         {
-            if (nodo->getItem()->getNit().compare("0") == 0)
-                return false;
-
             if (primero == nodo)
-            {
                 primero = primero->getSiguiente();
-
-                delete nodo;
-                nodo = NULL;
-                return true;
-            }
             else
             {
                 NodoCliente *anterior = buscarAnterior(primero, value);
@@ -261,11 +271,12 @@ bool ListaCliente::eliminar(QString value)
 
                 if (ultimo == nodo)
                     ultimo = anterior;
-
-                delete nodo;
-                nodo = NULL;
-                return true;
             }
+
+            transpasarFacturas(nodo);
+            delete nodo;
+            nodo = NULL;
+            return true;
         }
         else
             return false;

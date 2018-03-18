@@ -14,14 +14,19 @@ public:
     ListaFactura();
     ~ListaFactura();
 
+    NodoFactura *getPrimero();
+    NodoFactura *getUltimo();
     bool vacio();
     bool agregar(TADFactura *value);
+    bool agregar(NodoFactura *actual, NodoFactura *value);
     NodoFactura *buscar(QString serie, int correlativo);
     TADFactura *obtener(QString serie, int correlativo);
     bool eliminar(QString serie, int correlativo);
     void graficar();
     bool agregarPrimero(TADFactura *value);
+    bool agregarPrimero(NodoFactura *value);
     bool agregarUltimo(TADFactura *value);
+    bool agregarUltimo(NodoFactura *value);
     int contar();
     void llenarLista(QListWidget *lista);
 };

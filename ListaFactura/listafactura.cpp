@@ -25,6 +25,30 @@ bool ListaFactura::agregar(NodoFactura *actual, TADFactura *value)
     return false;
 }
 
+bool ListaFactura::agregar(NodoFactura *actual, NodoFactura *value)
+{
+    if (actual != NULL)
+    {
+        if (actual->getItem()->comparar(value->getItem()) == 0
+                || actual->getAnterior()->getItem()->comparar(value->getItem()) == 0)
+            return false;
+
+        if (actual->getItem()->comparar(value->getItem()) > 0)
+        {
+            value->setSiguiente(actual);
+            actual->getAnterior()->setSiguiente(value);
+            value->setAnterior(actual->getAnterior());
+            actual->setAnterior(value);
+
+            return true;
+        }
+
+        return agregar(actual->getSiguiente(), value);
+    }
+
+    return false;
+}
+
 NodoFactura *ListaFactura::buscar(NodoFactura *actual, QString serie, int correlativo)
 {
     if (actual != NULL)
@@ -57,6 +81,16 @@ ListaFactura::~ListaFactura()
     }
 
     ultimo = NULL;
+}
+
+NodoFactura *ListaFactura::getPrimero()
+{
+    return primero;
+}
+
+NodoFactura *ListaFactura::getUltimo()
+{
+    return ultimo;
 }
 
 bool ListaFactura::vacio()
@@ -103,6 +137,22 @@ bool ListaFactura::agregarPrimero(TADFactura *value)
     return true;
 }
 
+bool ListaFactura::agregarPrimero(NodoFactura *value)
+{
+    if (vacio())
+    {
+        primero = ultimo = value;
+
+        return true;
+    }
+
+    value->setSiguiente(primero);
+    primero->setAnterior(value);
+    primero = value;
+
+    return true;
+}
+
 bool ListaFactura::agregarUltimo(TADFactura *value)
 {
     NodoFactura *nuevo = new NodoFactura(value);
@@ -117,6 +167,22 @@ bool ListaFactura::agregarUltimo(TADFactura *value)
     nuevo->setAnterior(ultimo);
     ultimo->setSiguiente(nuevo);
     ultimo = nuevo;
+
+    return true;
+}
+
+bool ListaFactura::agregarUltimo(NodoFactura *value)
+{
+    if (vacio())
+    {
+        primero = ultimo = value;
+
+        return true;
+    }
+
+    value->setAnterior(ultimo);
+    ultimo->setSiguiente(value);
+    ultimo = value;
 
     return true;
 }

@@ -12,6 +12,13 @@ TADCliente::TADCliente(QString _nit, QString _nombre)
     facturas = new ListaFactura();
 }
 
+TADCliente::TADCliente(QString _nit, QString _nombre, ListaFactura *_factura)
+{
+    nit = _nit;
+    nombre = _nombre;
+    facturas = _factura;
+}
+
 TADCliente::~TADCliente()
 {
     nit.clear();
@@ -39,15 +46,39 @@ QString TADCliente::getNombre()
     return nombre;
 }
 
-void TADCliente::setFactura(TADFactura *value)
+void TADCliente::setFactura(ListaFactura *value)
+{
+    facturas = value;
+}
+
+void TADCliente::addFactura(TADFactura *value)
 {
     facturas->agregar(value);
 }
 
-void TADCliente::setFacturas(ListaFactura *value)
+void TADCliente::addFacturas(ListaFactura *value)
 {
     delete facturas;
     facturas = value;
+}
+
+void TADCliente::agregarFacturas(ListaFactura *value)
+{
+    NodoFactura *factura = value->getPrimero();
+
+    while (factura != NULL)
+    {
+        if (facturas->vacio())
+            facturas->agregarPrimero(factura);
+        else if (facturas->getPrimero()->getItem()->comparar(factura->getItem()) > 0)
+            facturas->agregarPrimero(factura);
+        else if (facturas->getPrimero()->getItem()->comparar(factura->getItem()) > 0)
+            facturas->agregarUltimo(factura);
+        else
+            facturas->agregar(facturas->getPrimero()->getSiguiente(), factura);
+
+        factura = factura->getSiguiente();
+    }
 }
 
 ListaFactura *TADCliente::getFacturas()

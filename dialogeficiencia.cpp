@@ -32,7 +32,7 @@ double DialogEficiencia::cargarEstructura(int count)
         producto->setDescripcion(descripcion);
         producto->setPrecio(precio);
 
-        lista->agregarUltimo(producto);
+        lista->agregar(producto);
     }
 
     t2 = clock();

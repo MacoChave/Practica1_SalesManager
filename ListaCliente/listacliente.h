@@ -20,6 +20,7 @@ class ListaCliente
     bool agregar(NodoCliente *anterior, NodoCliente *actual, NodoCliente *nuevo);
     NodoCliente *buscar(NodoCliente *actual, QString value);
     NodoCliente *buscarAnterior(NodoCliente *actual, QString value);
+    bool transpasarFacturas(NodoCliente *origen);
 public:
     ListaCliente();
     ~ListaCliente();

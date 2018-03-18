@@ -70,29 +70,31 @@ QString TADProducto::toString()
 
 int TADProducto::comparar(TADProducto *value)
 {
-    if (id > value->getId())
-        return 1;
-    else
-    {
-        if (id < value->getId())
-            return -1;
-        else
-            return 0;
-    }
+//    if (id > value->getId())
+//        return 1;
+//    else
+//    {
+//        if (id < value->getId())
+//            return -1;
+//        else
+//            return 0;
+//    }
+    return codigo.compare(value->getCodigo());
 }
 
 int TADProducto::comparar(QString value)
 {
-    value.remove("P");
-    if (id > value.toInt())
-        return 1;
-    else
-    {
-        if (id < value.toInt())
-            return -1;
-        else
-            return 0;
-    }
+//    value.remove(QRegExp("[A-Za-z]"));
+//    if (id > value.toInt())
+//        return 1;
+//    else
+//    {
+//        if (id < value.toInt())
+//            return -1;
+//        else
+//            return 0;
+//    }
+    return codigo.compare(value);
 }
 
 int TADProducto::isOcupado()
@@ -128,7 +130,7 @@ TADProducto::TADProducto(QString _codigo, double _precio, QString _nombre, QStri
     descripcion = _descripcion;
     ocupado = false;
 
-    _codigo.remove("P");
+    codigo.remove(QRegExp("[A-Za-z]"));
     id = _codigo.toInt();
 }
 
