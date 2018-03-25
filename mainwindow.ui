@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>672</width>
+    <width>734</width>
     <height>600</height>
    </rect>
   </property>
@@ -27,7 +27,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <property name="elideMode">
        <enum>Qt::ElideNone</enum>
@@ -83,7 +83,7 @@
            <item row="4" column="0" colspan="2">
             <layout class="QHBoxLayout" name="horizontalLayout">
              <item>
-              <widget class="QPushButton" name="btn_producto_agregar">
+              <widget class="QPushButton" name="btn_producto_aceptar">
                <property name="text">
                 <string>OK</string>
                </property>
@@ -106,25 +106,47 @@
             </layout>
            </item>
            <item row="3" column="1">
-            <widget class="QLineEdit" name="lineEdit"/>
+            <widget class="QLineEdit" name="edt_producto_descripcion"/>
            </item>
           </layout>
          </widget>
         </item>
         <item row="0" column="1" rowspan="2">
          <widget class="QGroupBox" name="grp_producto_registro">
+          <property name="minimumSize">
+           <size>
+            <width>400</width>
+            <height>0</height>
+           </size>
+          </property>
           <property name="title">
            <string>Registro</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_2">
-           <item row="0" column="0">
-            <widget class="QListView" name="list_producto_registro"/>
-           </item>
-           <item row="1" column="0">
+           <item row="2" column="0">
             <widget class="QPushButton" name="btn_producto_detalle">
              <property name="text">
               <string>Ver detalle (De item seleccionado)</string>
              </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QTableWidget" name="tbl_producto_registro">
+             <column>
+              <property name="text">
+               <string>Codigo</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Nombre</string>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Precio</string>
+              </property>
+             </column>
             </widget>
            </item>
           </layout>
@@ -179,7 +201,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>672</width>
+     <width>734</width>
      <height>25</height>
     </rect>
    </property>
@@ -187,8 +209,7 @@
     <property name="title">
      <string>Archivo</string>
     </property>
-    <addaction name="actionCargar_JSON"/>
-    <addaction name="actionExportar_JSON"/>
+    <addaction name="actionSalir"/>
    </widget>
    <addaction name="menuArchivo"/>
   </widget>
@@ -201,26 +222,9 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="actionCargar_JSON">
+  <action name="actionSalir">
    <property name="text">
-    <string>Cargar archivo</string>
-   </property>
-   <property name="toolTip">
-    <string>Cargar archivo JSON</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+O</string>
-   </property>
-  </action>
-  <action name="actionExportar_JSON">
-   <property name="text">
-    <string>Exportar archivo</string>
-   </property>
-   <property name="toolTip">
-    <string>Exportar archivo JSON</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+S</string>
+    <string>Salir</string>
    </property>
   </action>
  </widget>

@@ -22,9 +22,10 @@ public:
     QString getDescripcion();
     void setDescripcion(QString value);
 
-    QString getName();
+    QString getNombreNodo();
     QString toString();
-    int comparar(TADProducto value);
+    int comparar(TADProducto *value);
+    int comparar(QString value);
 };
 
 #endif // TADPRODUCTO_H

@@ -1,4 +1,0 @@
-#ifndef NODOPRODUCTO_H
-#define NODOPRODUCTO_H
-
-#endif // NODOPRODUCTO_H
