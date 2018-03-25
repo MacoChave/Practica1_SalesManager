@@ -369,12 +369,12 @@ void MainWindow::on_btn_cliente_carga_clicked()
                     continue;
                 }
 
-                cliente->setFactura(factura);
+                cliente->addFactura(factura);
             }
             if (cliente->getFacturas()->contar() < 1)
             {
                 delete cliente->getFacturas();
-                cliente->setFactura(NULL);
+                cliente->addFactura(NULL);
             }
 
             clientes->agregar(cliente);

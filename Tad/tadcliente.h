@@ -11,14 +11,17 @@ class TADCliente
 public:
     TADCliente();
     TADCliente(QString _nit, QString _nombre);
+    TADCliente(QString _nit, QString _nombre, ListaFactura *_facturas);
     ~TADCliente();
 
     void setNit(QString value);
     QString getNit();
     void setNombre(QString value);
     QString getNombre();
-    void setFactura(TADFactura *value);
-    void setFacturas(ListaFactura *value);
+    void setFactura(ListaFactura *value);
+    void addFactura(TADFactura *value);
+    void addFacturas(ListaFactura *value);
+    void agregarFacturas(ListaFactura *value);
     ListaFactura *getFacturas();
 
     QString getNombreNodo();
